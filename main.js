@@ -3,7 +3,7 @@ var BrowserWindow = require('browser-window');  // Module to create native brows
 
 // Report crashes to our server.
 require('crash-reporter').start();
-
+const ipc = require('ipc');
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
@@ -36,4 +36,13 @@ app.on('ready', function() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+});
+
+ipc.on('get-data', function () {
+  dataPortal = new BrowserWindow({width: 400, height:300, show: true});
+  mainWindow.loadUrl('https://encrypted.google.com');
+  mainWindow.webContents.on('did-finish-load', function(){
+    console.log('also-hi');
+  });
+  console.log('hi');
 });

@@ -1,4 +1,8 @@
 /**
  * Created by James on 16/11/2015.
  */
-document.write('The node.js version is ' + process.version);
+'use strict';
+
+var ipc = require('ipc');
+
+ipc.send('get-data');
