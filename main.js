@@ -38,11 +38,11 @@ app.on('ready', function() {
   });
 });
 
-ipc.on('get-data', function () {
+ipc.on('get-data', function (event, args) {
   dataPortal = new BrowserWindow({width: 400, height:300, show: true});
-  mainWindow.loadUrl('https://encrypted.google.com');
-  mainWindow.webContents.on('did-finish-load', function(){
-    console.log('also-hi');
+  dataPortal.loadUrl('file://' + __dirname + '/app/data.html');
+  dataPortal.webContents.on('did-finish-load', function(){
+    value = dataPortal.webContents.getUrl();
+    console.log('web-contents: ' + args);
   });
-  console.log('hi');
 });
