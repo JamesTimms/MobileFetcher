@@ -39,10 +39,10 @@ app.on('ready', function() {
 });
 
 ipc.on('get-data', function (event, args) {
-  dataPortal = new BrowserWindow({width: 400, height:300, show: true});
-  dataPortal.loadUrl('file://' + __dirname + '/app/data.html');
-  dataPortal.webContents.on('did-finish-load', function(){
-    value = dataPortal.webContents.getUrl();
+  //dataPortal = new BrowserWindow({width: 400, height:300, show: true});
+  //dataPortal.loadUrl('file://' + __dirname + '/app/data.html');
+  //dataPortal.webContents.on('did-finish-load', function(){
+  //  value = dataPortal.webContents.getUrl();
     console.log('web-contents: ' + args);
-  });
+  //});
 });
