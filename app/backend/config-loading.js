@@ -8,7 +8,7 @@ var ParseJsonFromFile = function (name) {
     return JSON.parse(fs.readFileSync(name));
 };
 
-var SetupApiListeners = function() {
+var SetupJSONListeners = function() {
     ipc.on('get_api_key', function (event) {
         var content = ParseJsonFromFile('./import_io.json');
         event.returnValue = content['import.io']['api_key'];
@@ -27,4 +27,4 @@ var SetupApiListeners = function() {
 };
 
 exports.ParseJsonFromFile = ParseJsonFromFile;
-exports.SetupApiListeners = SetupApiListeners;
+exports.SetupJSONListeners = SetupJSONListeners;
