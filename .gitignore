@@ -30,3 +30,4 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 /settings.json
+/import_io.json
