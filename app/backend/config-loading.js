@@ -21,7 +21,6 @@ var SetupJSONListeners = function() {
 
     ipc.on('get_connector', function (event) {
         var content = ParseJsonFromFile('./import_io.json');
-        console.info(content['import.io']['connector']);
         event.returnValue = content['import.io']['connector'];
     });
 };
