@@ -4,11 +4,12 @@ var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 var data = require('./app/js/data-parser.js');
 var dataParser = require('./app/js/data-parser.js');
-var fs = require('fs');
+var config = require('./app/backend/config-loading.js');
+const ipc = require('ipc');
 
 // Report crashes to our server.
-require('crash-reporter').start();
-const ipc = require('ipc');
+//require('crash-reporter').start();
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
@@ -48,24 +49,4 @@ ipc.on('get-data', function (event, args) {
     dataP.test();
 });
 
-var ParseJsonFromFile = function (name) {
-    return JSON.parse(fs.readFileSync(name));
-};
-
-ParseJsonFromFile('./import_io.json');
-
-ipc.on('get_api_key', function (event) {
-    var content = ParseJsonFromFile('./import_io.json');
-    event.returnValue = content['import.io']['api_key'];
-});
-
-ipc.on('get_user', function (event) {
-    var content = ParseJsonFromFile('./import_io.json');
-    event.returnValue = content['import.io']['user'];
-});
-
-ipc.on('get_connector', function (event) {
-    var content = ParseJsonFromFile('./import_io.json');
-    console.info(content['import.io']['connector']);
-    event.returnValue = content['import.io']['connector'];
-});
+config.SetupApiListeners();
