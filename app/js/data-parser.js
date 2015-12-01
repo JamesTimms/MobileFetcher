@@ -10,7 +10,6 @@ var DataParser = function () {
     func.ParseData = function (data) {
         var json = JSON.parse(data);
         var _json = [];
-        console.log(JSON.stringify(json['results']));
         _json.push({
             name: json['results'][0]['name_of_phone'],
             data: json['results']
