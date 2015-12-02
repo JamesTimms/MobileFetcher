@@ -8,6 +8,11 @@ var fs = require('fs');
 var DataParser = function () {
     var func = {};
     func.ParseData = function (data) {
+        if(!data) {
+            console.log('Failed to write to file because data was null.');
+            return;
+        }
+
         var json = JSON.parse(data);
         var _json = [];
         _json.push({
