@@ -6,11 +6,13 @@
     "start": "electron .",
     "package": "electron-packager ./ SoundMachine --platform=win32 --arch=x64 --out=../SoundMachine --asar=true --prune=true --overwrite --version=0.30.3 --icon=./app/img/app-icon.ico",
     "exe": "electron-builder ../SoundMachine --platform=win --out=../Build/SoundMachine --config=packager.json",
-    "full-build": "npm run package && npm run exe"
+    "full-build": "npm run package && npm run exe",
+    "minify": "grunt --gruntfile ./node_modules/bootstrap/Gruntfile.js dist && mv ./node_modules/bootstrap/dist/ ./"
   },
   "devDependencies": {
     "electron-packager": "^5.0.1",
-    "electron-prebuilt": "^0.30.3"
+    "electron-prebuilt": "^0.30.3",
+    "grunt": "^0.4.5"
   },
   "dependencies": {
     "electron-builder": "^2.2.0",
