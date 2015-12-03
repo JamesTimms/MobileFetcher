@@ -9,7 +9,9 @@
     <meta name="author" content="James Timms">
 
     <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./cs/dashboard.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/ee-style.css">
     <!--<link rel="icon" href="../../favicon.ico">-->
     <title>Mobile Fetcher</title>
 </head>
@@ -40,41 +42,47 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">View</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">Exit</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <!--<div class="col-sm-3 col-md-2 sidebar">-->
+        <!--<ul class="nav nav-sidebar">-->
+        <!--<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>-->
+        <!--<li><a href="#">View</a></li>-->
+        <!--</ul>-->
+        <!--<ul class="nav nav-sidebar">-->
+        <!--<li><a href="">Exit</a></li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-1 main">
             <h1 class="page-header">Dashboard</h1>
 
-            <div class="row placeholders">
+            <div class="row row-offset placeholders ee-style" style="padding-top: inherit">
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                         width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
+                    <!--<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="-->
+                    <!--width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">-->
+                    <a href="./index.html">
+                        <i class="fa fa-caret-square-o-up img-responsive" style="font-size: 10em; color: #FFE600"></i>
+                    </a>
+                    <h4 style="color: white">Export (placeholder)</h4>
                     <span class="text-muted">Something else</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                         width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
+                    <a href="./index.html">
+                        <i class="fa fa-download img-responsive" style="font-size: 10em; color: #FFE600"></i>
+                    </a>
+                    <h4 style="color: white">Download (placeholder)</h4>
                     <span class="text-muted">Something else</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                         width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
+                    <a href="./index.html">
+                        <i class="fa fa-refresh img-responsive" style="font-size: 10em; color: #FFE600"></i>
+                    </a>
+                    <h4 style="color: white">Refresh Data (placeholder)</h4>
                     <span class="text-muted">Something else</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                         width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
+                    <a href="./index.html">
+                        <i class="fa fa-database img-responsive" style="font-size: 10em; color: #FFE600"></i>
+                    </a>
+                    <h4 style="color: white">Something? (placeholder)</h4>
                     <span class="text-muted">Something else</span>
                 </div>
             </div>
@@ -84,6 +92,7 @@
                 <button type="submit">Get data</button>
             </div>
             <br>
+
             <h2 class="sub-header">Section title</h2>
 
             <div class="table-responsive">
