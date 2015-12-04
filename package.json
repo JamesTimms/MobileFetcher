@@ -1,11 +1,11 @@
 {
-  "name": "Mobile_Fecther",
+  "name": "Mobile_Fetcher",
   "version": "0.1.0",
   "main": "./main.js",
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager ./ SoundMachine --platform=win32 --arch=x64 --out=../SoundMachine --asar=true --prune=true --overwrite --version=0.30.3 --icon=./app/img/app-icon.ico",
-    "exe": "electron-builder ../SoundMachine --platform=win --out=../Build/SoundMachine --config=packager.json",
+    "package": "electron-packager ./ MobileFetcher --platform=win32 --arch=x64 --out=../MobileFetcher --asar=true --prune=true --overwrite --version=0.30.3 --icon=./app/img/favicon.ico",
+    "exe": "electron-builder ../MobileFetcher --platform=win --out=../Build/MobileFetcher --config=packager.json",
     "full-build": "npm run package && npm run exe",
     "minify": "grunt --gruntfile ./node_modules/bootstrap/Gruntfile.js dist && mv ./node_modules/bootstrap/dist/ ./"
   },

@@ -19,7 +19,7 @@ var DataParser = function () {
             name: json['results'][0]['name_of_phone'],
             data: json['results']
         });
-        fs.writeFile('./test_data.json', JSON.stringify(_json), [], function () {
+        fs.writeFile('./app/storage/test_data.json', JSON.stringify(_json), [], function () {
             console.log('finished writing to file')
         })
     };

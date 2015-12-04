@@ -34,7 +34,7 @@ app.on('ready', function () {
     mainWindow.loadUrl('file://' + __dirname + '/app/index.html');
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
@@ -45,14 +45,16 @@ app.on('ready', function () {
     });
 });
 
-ipc.on('data-export', function(event, args) {
-    var dataP = dataParser.DataParser();
-    dataP.ParseData(args);
-});
+//ipc.on('data-export', function(event, args) {
+//    var dataP = dataParser.DataParser();
+//    dataP.ParseData(args);
+//});
 
 ipc.on('data-contents', function (event, args) {
     BrowserWindow.fromWebContents(event.sender).close();
     mainWindow.webContents.send('import-io-data', args);
+    var dataP = dataParser.DataParser();
+    dataP.ParseData(args);
 });
 
 config.SetupJSONListeners();

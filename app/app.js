@@ -31,6 +31,7 @@ var LoadData = function () {
     var url = document.getElementById('data-url').value;
     ipc.send('get-data', url);
 };
+
 document.getElementById('data-button').onclick = LoadData;
 
 ipc.on('import-io-data', function (arg) {
