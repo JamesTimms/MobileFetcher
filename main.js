@@ -45,27 +45,14 @@ app.on('ready', function () {
     });
 });
 
-var dataWindow;
-ipc.on('get-data', function (event, args) {
-    if (dataWindow != null) {
-        console.log('data window is being used.');
-        return;
-    }
-    //import_io.magic(args);
-    dataWindow = new BrowserWindow({width: 860, height: 640, show: false});
-    dataWindow.loadUrl(args);
-    dataWindow.webContents.on('did-finish-load', function () {
-        var js = "var ipc = require('ipc'); ipc.send('data-contents', document.body.innerText);";
-        dataWindow.webContents.executeJavaScript(js);
-    });
-    //var dataP = dataParser.DataParser();
-    //dataP.ParseData(args);
+ipc.on('data-export', function(event, args) {
+    var dataP = dataParser.DataParser();
+    dataP.ParseData(args);
 });
 
 ipc.on('data-contents', function (event, args) {
+    BrowserWindow.fromWebContents(event.sender).close();
     mainWindow.webContents.send('import-io-data', args);
-    dataWindow.close();
-    dataWindow = null;
 });
 
 config.SetupJSONListeners();

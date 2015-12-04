@@ -8,7 +8,7 @@ var ipc = require('ipc');
 /**
  * @return {string}
  */
-var ImportIoQuery = function(){
+var ImportIoQuery = function () {
     return "https://api.import.io/store/data/"
         + ipc.sendSync("get_connector")
         + "/_query?_user=" + ipc.sendSync("get_user")
@@ -27,12 +27,12 @@ var ImportIoQuery = function(){
 //    webview.addEventListener("did-stop-loading", loadstop);
 //};
 
-var LoadData = function(){
+var LoadData = function () {
     var url = document.getElementById('data-url').value;
     ipc.send('get-data', url);
 };
 document.getElementById('data-button').onclick = LoadData;
 
-ipc.on('import-io-data', function(arg){
-    console.log('done');
+ipc.on('import-io-data', function (arg) {
+    console.log(arg);
 });
