@@ -52,6 +52,10 @@ app.on('ready', function () {
 
 ipc.on('data-contents', function (event, args) {
     BrowserWindow.fromWebContents(event.sender).close();
+    if(!args) {
+        console.log('No data from api request. The api request was probably formed wrong.');
+        return;
+    }
     mainWindow.webContents.send('import-io-data', args);
     var dataP = dataParser.DataParser();
     dataP.ParseData(args);
