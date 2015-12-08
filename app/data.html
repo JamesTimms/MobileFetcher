@@ -4,25 +4,6 @@
     <title>Data Page</title>
   </head>
   <body>
-  {
-  "name": "sound_machine",
-  "version": "0.1.0",
-  "main": "./main.js",
-  "scripts": {
-  "start": "electron .",
-  "package": "electron-packager ./ SoundMachine --platform=win32 --arch=x64 --out=../SoundMachine --asar=true --prune=true --overwrite --version=0.30.3 --icon=./app/img/app-icon.ico",
-  "exe": "electron-builder ../SoundMachine --platform=win --out=../Build/SoundMachine --config=packager.json",
-  "full-build": "npm run package && npm run exe"
-  },
-  "devDependencies": {
-  "electron-packager": "^5.0.1",
-  "electron-prebuilt": "^0.30.3"
-  },
-  "dependencies": {
-  "electron-builder": "^2.2.0",
-  "font-awesome": "^4.4.0",
-  "nconf": "^0.7.2"
-  }
-  }
   </body>
+<script src="js/scraping/test-scrap.js"></script>
 </html>
