@@ -3,6 +3,7 @@
  */
 
 var Xray = require('x-ray');
+
 var x = Xray();
 
 //#body > div > div.review-header.hreview > div > div.article-info-line.page-specs.light.border-bottom > h1

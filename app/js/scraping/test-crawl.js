@@ -2,7 +2,17 @@
  * Created by James on 08/12/2015.
  */
 
-var Crawler = require("js-crawler");
+var Crawler = require('js-crawler');
+
+var Vue = require("Vue");
+
+var v = new Vue({
+    el: '#data',
+    data: {
+        urls: ['www.example.com','www.example2.com']
+    }
+});
+
 
 var allowedUrls = new RegExp([
     "^(https?:\/\/)?www.gsmarena.com\/?"
@@ -47,3 +57,7 @@ c = new Crawler().configure({
 //    console.log('All crawling finished');
 //    console.log(crawledUrls);
 //});
+
+console.info(v.$data.urls);
+v.$data.urls.push('test.com');
+v.$data.urls.push('test2.com');
