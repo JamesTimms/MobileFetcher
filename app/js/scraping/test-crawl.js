@@ -3,7 +3,6 @@
  */
 
 var Crawler = require("js-crawler");
-var vue = require("Vue");
 
 var allowedUrls = new RegExp([
     "^(https?:\/\/)?www.gsmarena.com\/?"

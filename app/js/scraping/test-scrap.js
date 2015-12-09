@@ -23,6 +23,6 @@ x('http://www.gsmarena.com/samsung_galaxy_s6-6849.php', {
         console.log('Found nothing...');
         return;
     }
-    console.info(found); // Google
+    console.info(found);//Google
     document.write(found.technology);
 });
