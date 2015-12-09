@@ -12,9 +12,8 @@
     <link href="css/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/ee-style.css">
-    <link rel="icon" href="./img/favicon.ico">
+    <!--<link rel="icon" href="../../favicon.ico">-->
     <title>Mobile Fetcher</title>
-    <script src="../node_modules/vue/dist/vue.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -96,7 +95,7 @@
 
             <h2 class="sub-header">Phone Data</h2>
 
-            <div id="app" class="table-responsive">
+            <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -107,14 +106,13 @@
                         <th>etc...</th>
                     </tr>
                     </thead>
-
-                    <tbody v-for="device in devices">
+                    <tbody>
                     <tr>
                         <td>1,001</td>
-                        <td>{{ device.name }}</td>
-                        <td>{{ device.ipv6 }}</td>
-                        <td>n</td>
-                        <td>n</td>
+                        <td>Lorem</td>
+                        <td>ipsum</td>
+                        <td>dolor</td>
+                        <td>sit</td>
                     </tr>
                     </tbody>
                 </table>
@@ -125,7 +123,8 @@
 
 <script src="./js/jquery-1.11.3.min.js"></script>
 <script src="../dist/js/bootstrap.min.js"></script>
-<script src="./app.js"></script>
-<script src="./js/vue-test.js"></script>
+<script>
+    require('./app.js');
+</script>
 </body>
 </html>
