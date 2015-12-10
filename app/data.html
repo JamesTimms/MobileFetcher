@@ -18,6 +18,9 @@
 <body>
 
 <div id="data" class="table-responsive">
+
+    <button v-if="crawling" onclick="pauseCrawl()" type="button" class="btn btn-primary btn-lg btn-block">Pause Crawl</button>
+    <button v-else type="button" onclick="resumeCrawl()" class="btn btn-secondary btn-lg btn-block">Resume Crawl</button>
     <table class="table table-striped">
         <thead>
         <tr>
