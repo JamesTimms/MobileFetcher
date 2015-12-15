@@ -41,3 +41,5 @@ fabric.properties
 /app/backend/crawler/data.txt
 /app/backend/crawler/gsmarena_spider.json
 /app/backend/crawler/phone-data
+cacheHere
+/crawledUrls.json
