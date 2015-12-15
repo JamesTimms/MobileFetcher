@@ -61,35 +61,32 @@ var cachedGsmarenaRobotsTxt =
 var robots = robotsParser('http://www.gsmarena.com/robots.txt', cachedGsmarenaRobotsTxt);
 
 /**
- * Only supports http and https right now.
  *
  * @param url The url to test.
  * @param ua User agent for robots.txt specifics. Mostly * is ok.
  */
 isAllowed = function (url, ua) {
-    if (!url.match(/^https?:\/\//)) {
-        url = "http://" + url;
-    }
-    return obeyRobotsTxt && robots.isAllowed(url, ua);
+    var r = robots.isAllowed(url, ua);
+    r = (r == undefined) ? false : r;
+    return obeyRobotsTxt && r;
 };
 //----------------------------------------------------------------------------------------------------------------------
 
 var httpsOpt = "^(https?:\/\/)?(www.)?";
-var gsmarenaDomain = "^(https?:\/\/)?(www.)?gsmarena.com\/";
+var gsmarenaDomain = "(^(https?:\/\/)?(www.)?gsmarena.com\/)";
 
-var allowedUrls = new RegExp([
-].join('|'));//Empty means allow all.
+var allowedUrls = new RegExp([/.*/].join('|'));//Empty means allow all.
 
 var disallowedUrls = new RegExp([
     gsmarenaDomain + "a.gsmarena.com\/",
     httpsOpt + "facebook.com/",
-    gsmarenaDomain + "/[a-zA-Z0-9]+-(blog|3d-spin|pictures|reviews)-[a-zA-Z0-9]+",
-    gsmarenaDomain + "compare | news",
+    gsmarenaDomain + "?/[a-zA-Z0-9]+-(blog|3d-spin|pictures|reviews)-[a-zA-Z0-9]+",
+    gsmarenaDomain + "?(reviews|blog|compare|news|advert|privacy|favicon|login|tools|faq|contact|switch|tipus).*",
     httpsOpt + "plusone.google.com"
 ].join('|'));
 
 var myCrawler = new Crawler("www.gsmarena.com", "/", 80);
-myCrawler.maxDepth = 2;
+myCrawler.maxDepth = 1;
 myCrawler.maxConcurrency = 1;
 myCrawler.interval = 10000;
 
@@ -127,10 +124,10 @@ myCrawler.on("crawlstart", function () {
     console.log("Crawl Started!");
 });
 
-//var conditionID = myCrawler.addFetchCondition(function (parsedURL) {
-//    return (!parsedURL.path.match(disallowedUrls) && isAllowed(parsedURL));
-//        //|| parsedURL.path.match(allowedUrls);//Allow list should override the disallow list.
-//});
+var conditionID = myCrawler.addFetchCondition(function (parsedURL) {
+    return (!parsedURL.path.match(disallowedUrls) && isAllowed(parsedURL.protocol + "://" + parsedURL.host + parsedURL.path));
+        //|| parsedURL.path.match(allowedUrls);//Allow list should override the disallow list.
+});
 
 process.nextTick(function () {
     myCrawler.start();
