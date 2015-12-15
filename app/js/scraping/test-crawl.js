@@ -30,8 +30,7 @@ var disallowedUrls = new RegExp([
     httpsOpt + "plusone.google.com"
 ].join('|'));
 
-//var myCrawler = new OtherCrawler("http://www.gsmarena.com/");
-var myCrawler = new Crawler("www.gsmarena.com", "/", 80);
+var myCrawler = new Crawler("http://www.gsmarena.com", "/", 80);
 myCrawler.maxDepth = 1;
 myCrawler.maxConcurrency = 1;
 myCrawler.interval = 100000;
@@ -71,10 +70,11 @@ myCrawler.on("crawlstart", function () {
 });
 
 var conditionID = myCrawler.addFetchCondition(function (parsedURL) {
-    return !parsedURL.path.match(disallowedUrls) && RobotsTxt(parsedURL);
+    return (!parsedURL.path.match(disallowedUrls) && RobotsTxt(parsedURL))
+        || parsedURL.path.match(allowedUrls);//Allowed list should override disallowed list.
 });
 
-process.nextTick(function() {
+process.nextTick(function () {
     myCrawler.start();
 });
 
