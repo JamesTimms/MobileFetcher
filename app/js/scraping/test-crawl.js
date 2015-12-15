@@ -11,7 +11,7 @@ var v = new Vue({
     el: '#data',
     data: {
         crawling: true,
-        urls: ['www.example.com', 'www.example2.com']
+        urls: []
     }
 });
 //----------------------------------------------------------------------------------------------------------------------
@@ -66,16 +66,18 @@ var robots = robotsParser('http://www.gsmarena.com/robots.txt', cachedGsmarenaRo
  * @param ua User agent for robots.txt specifics. Mostly * is ok.
  */
 isAllowed = function (url, ua) {
+    if(!obeyRobotsTxt) {
+        return false;
+    }
     var r = robots.isAllowed(url, ua);
-    r = (r == undefined) ? false : r;
-    return obeyRobotsTxt && r;
+    return (r == undefined) ? false : r;
 };
 //----------------------------------------------------------------------------------------------------------------------
 
 var httpsOpt = "^(https?:\/\/)?(www.)?";
 var gsmarenaDomain = "(^(https?:\/\/)?(www.)?gsmarena.com\/)";
 
-var allowedUrls = new RegExp([/.*/].join('|'));//Empty means allow all.
+var allowedUrls = new RegExp([/.*/].join('|'));
 
 var disallowedUrls = new RegExp([
     gsmarenaDomain + "a.gsmarena.com\/",
@@ -88,7 +90,7 @@ var disallowedUrls = new RegExp([
 var myCrawler = new Crawler("www.gsmarena.com", "/", 80);
 myCrawler.maxDepth = 1;
 myCrawler.maxConcurrency = 1;
-myCrawler.interval = 10000;
+myCrawler.interval = 1000;
 
 myCrawler.on("fetchcomplete", function (queueItem, responseBuffer, response) {
     console.log("I just received %s (%d bytes)", queueItem.url, responseBuffer.length);
@@ -126,7 +128,7 @@ myCrawler.on("crawlstart", function () {
 
 var conditionID = myCrawler.addFetchCondition(function (parsedURL) {
     return (!parsedURL.path.match(disallowedUrls) && isAllowed(parsedURL.protocol + "://" + parsedURL.host + parsedURL.path));
-        //|| parsedURL.path.match(allowedUrls);//Allow list should override the disallow list.
+    //|| parsedURL.path.match(allowedUrls);//Allow list should override the disallow list.
 });
 
 process.nextTick(function () {
@@ -146,37 +148,3 @@ var resumeCrawl = function () {
     crawler.queue.defrost("crawledUrls.json");
     //myCrawler.start();
 };
-
-//myCrawler.start();
-
-//c = new Crawler().configure({
-//    depth: 2,
-//    maxRequestsPerSecond: 5,
-//    maxConcurrentRequests: 2,
-//    shouldCrawl: function (url) {
-//        if (allowedUrls.exec(url) === null) {
-//            console.log('Not an allowed url: ' + url);
-//            return true;
-//        }
-//        if (disallowedUrls.exec(url) !== null) {
-//            console.log('Not an allowed url: ' + url);
-//            return true;
-//        }
-//        console.log('Allowed: ' + url);
-//        return true;
-//    }
-//});
-//    .crawl("http://www.gsmarena.com/", function (page) {
-//    console.log(page.url);
-//}, function (response) {
-//    console.log("ERROR occurred:");
-//    console.log(response.status);
-//    console.log(response.url);
-//}, function onAllFinished(crawledUrls) {
-//    console.log('All crawling finished');
-//    console.log(crawledUrls);
-//});/
-
-//console.info(v.$data.urls);
-//v.$data.urls.push('test.com');
-//v.$data.urls.push('test2.com');
