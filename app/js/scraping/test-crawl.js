@@ -83,14 +83,16 @@ var disallowedUrls = new RegExp([
     gsmarenaDomain + "a.gsmarena.com\/",
     httpsOpt + "facebook.com/",
     gsmarenaDomain + "?/[a-zA-Z0-9]+-(blog|3d-spin|pictures|reviews)-[a-zA-Z0-9]+",
-    gsmarenaDomain + "?(reviews|blog|compare|news|advert|privacy|favicon|login|tools|faq|contact|switch|tipus).*",
+    gsmarenaDomain + "?(reviews|blog|compare|news|advert|privacy|" +
+    "favicon|login|tools|faq|contact|switch|tipus|glossary).*",
     httpsOpt + "plusone.google.com"
 ].join('|'));
 
 var myCrawler = new Crawler("www.gsmarena.com", "/", 80);
 myCrawler.maxDepth = 1;
-myCrawler.maxConcurrency = 1;
+myCrawler.maxConcurrency = 2;
 myCrawler.interval = 1000;
+//myCrawler.cache = new Crawler.cache('./cacheHere/cache');//TODO: Cache not working for some reason.
 
 myCrawler.on("fetchcomplete", function (queueItem, responseBuffer, response) {
     console.log("I just received %s (%d bytes)", queueItem.url, responseBuffer.length);
@@ -140,11 +142,41 @@ var pauseCrawl = function () {
         console.log("FREEZE!");
         console.log("FREEZE error: " + err);
         //process.exit();
-        //myCrawler.stop();
+        myCrawler.stop();
     });
+    v.$data.crawling = false;
 };
 
 var resumeCrawl = function () {
-    crawler.queue.defrost("crawledUrls.json");
-    //myCrawler.start();
+    myCrawler.queue.defrost("crawledUrls.json");
+    myCrawler.start();
+    v.$data.crawling = true;
+};
+//-----------------------------------------------x-ray web reading------------------------------------------------------
+var Xray = require('x-ray');
+
+var x = Xray();
+
+//#body > div > div.review-header.hreview > div > div.article-info-line.page-specs.light.border-bottom > h1
+var extractor = function(url) {
+    x(url, {
+        title: '#body > div > div.review-header.hreview > div > div.article-info-line.page-specs.light.border-bottom > h1',
+        technology: '#specs-list > table:nth-child(3) > tr:nth-child(2) > td.nfo',
+        //#specs-list > table:nth-child(2) > tbody > tr.tr-hover > td.nfo > a
+        announced: '#specs-list > table:nth-child(4) > tr:nth-child(2) > td.nfo',
+        //#specs-list > table:nth-child(3) > tbody > tr:nth-child(2) > td.nfo
+        release: '#specs-list > table:nth-child(4) > tr:nth-child(1) > td.nfo'
+        //#specs-list > table:nth-child(3) > tbody > tr:nth-child(1) > td.nfo
+    })(function (err, found) {
+        if (err) {
+            console.log('There was an error in the webscraper: ' + err);
+            return;
+        }
+        if (found === '') {
+            console.log('Found nothing...');
+            return;
+        }
+        console.info(found);//Google
+        document.write(found.technology);
+    });
 };
