@@ -34,7 +34,7 @@ app.on('ready', function () {
     mainWindow.loadUrl('file://' + __dirname + '/app/data.html');
 
     // Open the DevTools.
-    //mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {

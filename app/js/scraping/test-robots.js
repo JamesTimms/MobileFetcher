@@ -54,4 +54,4 @@ isAllowed = function (url, ua) {
     return obeyRobotsTxt && robots.isAllowed(url, ua);
 };
 
-module.exports = isAllowed;
+module.exports.isAllowed = isAllowed;
