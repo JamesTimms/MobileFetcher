@@ -4,7 +4,7 @@
 
 //var Crawler = require('js-crawler');
 var Crawler = require("simplecrawler");
-
+var RobotsTxt = require("./test-robots.js");
 var Vue = require("Vue");
 
 var v = new Vue({
@@ -15,17 +15,19 @@ var v = new Vue({
     }
 });
 
+var httpsOpt = "^(https?:\/\/)?(www.)?";
+var gsmarenaDomain = "^(https?:\/\/)?(www.)?gsmarena.com\/";
+
 var allowedUrls = new RegExp([
-    "^(https?:\/\/)?www.gsmarena.com\/?"
+    gsmarenaDomain + "?"
 ].join('|'));
 
 var disallowedUrls = new RegExp([
-    "^(https?:\/\/)?a.gsmarena.com\/",
-    "^(https?:\/\/)?www.facebook.com/",
-    "^(https?:\/\/)?www.gsmarena.com/[a-zA-Z0-9]+-(blog|3d-spin|pictures|reviews)-[a-zA-Z0-9]+",
-    "^(https?:\/\/)?www.gsmarena.com\/compare",
-    "^(https?:\/\/)?www.gsmarena.com\/news",
-    "^(https?:\/\/)?plusone.google.com"
+    gsmarenaDomain + "a.gsmarena.com\/",
+    httpsOpt + "facebook.com/",
+    gsmarenaDomain + "/[a-zA-Z0-9]+-(blog|3d-spin|pictures|reviews)-[a-zA-Z0-9]+",
+    gsmarenaDomain + "compare | news",
+    httpsOpt + "plusone.google.com"
 ].join('|'));
 
 //var myCrawler = new OtherCrawler("http://www.gsmarena.com/");
@@ -68,9 +70,9 @@ myCrawler.on("crawlstart", function () {
     console.log("Crawl Started!");
 });
 
-//var conditionID = myCrawler.addFetchCondition(function (parsedURL) {
-//    return !parsedURL.path.match(disallowedUrls);
-//});
+var conditionID = myCrawler.addFetchCondition(function (parsedURL) {
+    return !parsedURL.path.match(disallowedUrls) && RobotsTxt(parsedURL);
+});
 
 process.nextTick(function() {
     myCrawler.start();
