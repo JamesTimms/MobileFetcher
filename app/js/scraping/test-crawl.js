@@ -108,6 +108,9 @@ myCrawler.on("complete", function () {
     console.log("Completed the crawl");
     console.log(myCrawler.queue);
     myCrawler.stop();
+    for(webpage in myCrawler.queue){
+        extract(webpage);
+    }
 });
 
 myCrawler.on("queueerror", function () {
