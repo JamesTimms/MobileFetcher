@@ -95,8 +95,9 @@ myCrawler.interval = 1000;
 //myCrawler.cache = new Crawler.cache('./cacheHere/cache');//TODO: Cache not working for some reason.
 
 myCrawler.on("fetchcomplete", function (queueItem, responseBuffer, response) {
-    console.log("I just received %s (%d bytes)", queueItem.url, responseBuffer.length);
-    console.log("It was a resource of type %s", response.headers['content-type']);
+    //console.log("I just received %s (%d bytes)", queueItem.url, responseBuffer.length);
+    //console.log("It was a resource of type %s", response.headers['content-type']);
+    extract(responseBuffer);
 });
 
 myCrawler.on("fetchstart", function () {
@@ -120,7 +121,6 @@ myCrawler.on("fetchdataerror", function () {
 });
 
 myCrawler.on("queueadd", function (queuedItem) {
-    console.log("Queued item: " + queuedItem.url);
     v.$data.urls.push(queuedItem.url);
 });
 
@@ -143,6 +143,7 @@ var pauseCrawl = function () {
         console.log("FREEZE error: " + err);
         //process.exit();
         myCrawler.stop();
+        console.log(myCrawler.queue[0])
     });
     v.$data.crawling = false;
 };
@@ -157,9 +158,19 @@ var Xray = require('x-ray');
 
 var x = Xray();
 
+function isEmpty(object) {
+    for(var key in object) {
+        if(object.hasOwnProperty(key)){
+            return false;
+        }
+    }
+    return true;
+}
+
+//myCrawler.queue.
 //#body > div > div.review-header.hreview > div > div.article-info-line.page-specs.light.border-bottom > h1
-var extractor = function(url) {
-    x(url, {
+var extract = function(urlOrData) {
+    x(urlOrData, {
         title: '#body > div > div.review-header.hreview > div > div.article-info-line.page-specs.light.border-bottom > h1',
         technology: '#specs-list > table:nth-child(3) > tr:nth-child(2) > td.nfo',
         //#specs-list > table:nth-child(2) > tbody > tr.tr-hover > td.nfo > a
@@ -172,11 +183,10 @@ var extractor = function(url) {
             console.log('There was an error in the webscraper: ' + err);
             return;
         }
-        if (found === '') {
+        if (found === '' || isEmpty(found)) {
             console.log('Found nothing...');
             return;
         }
-        console.info(found);//Google
-        document.write(found.technology);
+        console.info(found);
     });
 };
