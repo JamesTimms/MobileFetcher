@@ -66,7 +66,7 @@ var robots = robotsParser('http://www.gsmarena.com/robots.txt', cachedGsmarenaRo
  * @param ua User agent for robots.txt specifics. Mostly * is ok.
  */
 isAllowed = function (url, ua) {
-    if(!obeyRobotsTxt) {
+    if (!obeyRobotsTxt) {
         return false;
     }
     var r = robots.isAllowed(url, ua);
@@ -108,9 +108,10 @@ myCrawler.on("complete", function () {
     console.log("Completed the crawl");
     console.log(myCrawler.queue);
     myCrawler.stop();
-    for(webpage in myCrawler.queue){
-        extract(webpage);
-    }
+    myCrawler.queue.forEach(function (webpage) {
+            extract(webpage.protocol + "://" + webpage.host + webpage.url);
+        }
+    )
 });
 
 myCrawler.on("queueerror", function () {
@@ -162,8 +163,8 @@ var Xray = require('x-ray');
 var x = Xray();
 
 function isEmpty(object) {
-    for(var key in object) {
-        if(object.hasOwnProperty(key)){
+    for (var key in object) {
+        if (object.hasOwnProperty(key)) {
             return false;
         }
     }
@@ -172,7 +173,7 @@ function isEmpty(object) {
 
 //myCrawler.queue.
 //#body > div > div.review-header.hreview > div > div.article-info-line.page-specs.light.border-bottom > h1
-var extract = function(urlOrData) {
+var extract = function (urlOrData) {
     x(urlOrData, {
         title: '#body > div > div.review-header.hreview > div > div.article-info-line.page-specs.light.border-bottom > h1',
         technology: '#specs-list > table:nth-child(3) > tr:nth-child(2) > td.nfo',
