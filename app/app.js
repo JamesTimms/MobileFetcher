@@ -14,7 +14,7 @@ ipc.on('results', function (found) {
 
 });
 
-ipc.on('url-crawler-fetch', function (url) {
+ipc.on('fetch-complete', function (url) {
     v.$data.urls.push(url);
 });
 

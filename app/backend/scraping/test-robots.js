@@ -5,20 +5,10 @@ var robotsParser = require('robots-parser');
 var request = require('request');
 
 /**
- * Full example:
- * getRobotsFor(url, function(err, response, html) {var rules = forRobotsOn(url, html)})
- * @param robotTxtUrl The url of where the robots.txt file is located 'http://www.example.com/robots.txt'
- * @param callback Example:
- * getRobotsFor('http://www.example.com/robots.txt', function (err, response, html) {//handle raw response.});
- */
-var getRobotsFor = function (robotTxtUrl, callback) {
-    request(robotTxtUrl, callback);
-};
-/**
  * Just a cache of Gsmarena's robots.txt file. TODO: Should move this to business logic.
  * @type {string}
  */
-var cachedGsmarenaRobotsTxt =
+module.exports.cachedGsmarenaRobotsTxt =
     'User-agent: *\n' +
     'Disallow: /postopinion.php3\n' +
     'Disallow: /postcomment.php3\n' +
@@ -43,10 +33,24 @@ var cachedGsmarenaRobotsTxt =
     "User - agent: Mediapartners - Google\n" +
     "Disallow:\n";
 
-var forRobotsOn = function(url, contents){
-    return robotsParser(url, contents);
+function RobotsTxt(url, contents) {
+    this.r = robotsParser(url, contents);
+}
+
+RobotsTxt.prototype.isAllowed = function (parsedURL) {
+    var _r = this.r.isAllowed(parsedURL.protocol + "://" + parsedURL.host + parsedURL.path);
+    return (_r == undefined) ? false : _r;
 };
 
-module.exports.getRobotsFor = getRobotsFor;
-module.exports.cachedGsmarenaRobotsTxt = cachedGsmarenaRobotsTxt;
-module.exports.forRobotsOn = forRobotsOn;
+/**
+ * Full example:
+ * getRobotsFor(url, function(err, response, html) {var rules = forRobotsOn(url, html)})
+ * @param robotTxtUrl The url of where the robots.txt file is located 'http://www.example.com/robots.txt'
+ * @param callback Example:
+ * getRobotsFor('http://www.example.com/robots.txt', function (err, response, html) {//handle raw response.});
+ */
+RobotsTxt.getRobotsFor = function (robotTxtUrl, callback) {
+    request(robotTxtUrl, callback);
+};
+
+module.exports = RobotsTxt;

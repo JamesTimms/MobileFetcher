@@ -4,7 +4,7 @@
  */
 'use strict';
 
-var stuff = require('./backend/scraping/test-crawl.js');
+var stuff = require('./backend/Crawler/simple-crawler.js');
 
 stuff.extact("http://www.gsmarena.com/samsung_galaxy_s6-6849.php");
 
