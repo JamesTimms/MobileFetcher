@@ -2,9 +2,8 @@
 
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
-var config = require('./app/backend/config-loading.js');
-var webToMachine = require('./app/backend/scraping/test-scrap.js');
 const ipc = require('ipc');
+const mobileFetcher = require('app/backend/mobileFetcher/mobileFetcher.js');
 
 // Report crashes to our server.
 //require('crash-reporter').start();
@@ -42,11 +41,3 @@ app.on('ready', function () {
         mainWindow = null;
     });
 });
-
-ipc.on('x-ray', function (event, urlOrData) {
-    webToMachine.extract(urlOrData, function (found) {
-        event.sender.send('results', found);
-    });
-});
-
-config.SetupJSONListeners();

@@ -3,9 +3,35 @@
  */
 'use strict';
 
-var stuff = require('./backend/scraping/test-crawl.js');
+var ipc = require('ipc');
+var vue = require('js/vue-test.js');
 
-stuff.extact("http://www.gsmarena.com/samsung_galaxy_s6-6849.php");
+var extract = function (urlOrData) {
+    ipc.send('x-ray', urlOrData);
+};
+
+ipc.on('results', function (found) {
+
+});
+
+ipc.on('url-crawler-fetch', function (url) {
+    v.$data.urls.push(url);
+});
+
+var pauseCrawl = function () {
+    ipc.send('pause-crawler', function () {
+        v.$data.crawling = false;
+    });
+};
+
+var resumeCrawl = function () {
+    ipc.send('resume-crawler', function () {
+        v.$data.crawling = true;
+    });
+};
+
+//extract("http://www.gsmarena.com/samsung_galaxy_s6-6849.php");
+
 
 ///**
 // * @return {string}

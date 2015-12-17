@@ -1,7 +1,6 @@
 /**
  * Created by James on 08/12/2015.
  */
-
 var Xray = require('x-ray');
 
 var x = Xray();

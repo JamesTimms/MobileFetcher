@@ -128,79 +128,79 @@ var ipc = require('ipc');
 //    httpsOpt + "plusone.google.com"
 //].join('|'));
 //
-//var myCrawler = new Crawler("www.gsmarena.com", "/", 80);
-//myCrawler.maxDepth = 1;
-//myCrawler.maxConcurrency = 2;
-//myCrawler.interval = 1000;
-////myCrawler.cache = new Crawler.cache('./cacheHere/cache');//TODO: Cache not working for some reason.
+//var c = new Crawler("www.gsmarena.com", "/", 80);
+//c.maxDepth = 1;
+//c.maxConcurrency = 2;
+//c.interval = 1000;
+////c.cache = new Crawler.cache('./cacheHere/cache');//TODO: Cache not working for some reason.
 //
-//myCrawler.on("fetchcomplete", function (queueItem, responseBuffer, response) {
+//c.on("fetchcomplete", function (queueItem, responseBuffer, response) {
 //    //console.log("I just received %s (%d bytes)", queueItem.url, responseBuffer.length);
 //    //console.log("It was a resource of type %s", response.headers['content-type']);
 //    extract(responseBuffer);
 //});
 //
-//myCrawler.on("fetchstart", function () {
+//c.on("fetchstart", function () {
 //    console.log("Fetch started!");
 //});
 //
-//myCrawler.on("complete", function () {
+//c.on("complete", function () {
 //    console.log("Completed the crawl");
-//    console.log(myCrawler.queue);
-//    myCrawler.stop();
-//    //myCrawler.queue.forEach(function (webpage) {
+//    console.log(c.queue);
+//    c.stop();
+//    //c.queue.forEach(function (webpage) {
 //    //        extract(webpage.protocol + "://" + webpage.host + webpage.url);
 //    //    }
 //    //)
 //});
 //
-//myCrawler.on("queueerror", function () {
+//c.on("queueerror", function () {
 //    console.log("error with queue");
 //});
-//myCrawler.on("fetcherror", function () {
+//c.on("fetcherror", function () {
 //    console.log("error with fetch");
 //});
-//myCrawler.on("fetchdataerror", function () {
+//c.on("fetchdataerror", function () {
 //    console.log("error with fetch data");
 //});
 //
-//myCrawler.on("queueadd", function (queuedItem) {
+//c.on("queueadd", function (queuedItem) {
 //    v.$data.urls.push(queuedItem.url);
 //});
 //
-//myCrawler.on("crawlstart", function () {
+//c.on("crawlstart", function () {
 //    console.log("Crawl Started!");
 //});
 //
-//var conditionID = myCrawler.addFetchCondition(function (parsedURL) {
+//var conditionID = c.addFetchCondition(function (parsedURL) {
 //    return (!parsedURL.path.match(disallowedUrls) && isAllowed(parsedURL.protocol + "://" + parsedURL.host + parsedURL.path));
 //    //|| parsedURL.path.match(allowedUrls);//Allow list should override the disallow list.
 //});
 //
 //process.nextTick(function () {
-//    myCrawler.start();
+//    c.start();
 //});
 //
 //var pauseCrawl = function () {
-//    myCrawler.queue.freeze("crawledUrls.json", function (err) {
+//    c.queue.freeze("crawledUrls.json", function (err) {
 //        console.log("FREEZE!");
 //        console.log("FREEZE error: " + err);
 //        //process.exit();
-//        myCrawler.stop();
-//        console.log(myCrawler.queue[0])
+//        c.stop();
+//        console.log(c.queue[0])
 //    });
 //    v.$data.crawling = false;
 //};
 //
 //var resumeCrawl = function () {
-//    myCrawler.queue.defrost("crawledUrls.json");
-//    myCrawler.start();
+//    c.queue.defrost("crawledUrls.json");
+//    c.start();
 //    v.$data.crawling = true;
 //};
 ////-----------------------------------------------x-ray web reading------------------------------------------------------
 
 
-//myCrawler.queue.
+//c.queue.
 //#body > div > div.review-header.hreview > div > div.article-info-line.page-specs.light.border-bottom > h1
 var extract = function (urlOrData) {
     ipc.send('x-ray', urlOrData);

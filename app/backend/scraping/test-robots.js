@@ -2,18 +2,22 @@
  * Created by James on 08/12/2015.
  */
 var robotsParser = require('robots-parser');
-//var request = require('request');
+var request = require('request');
 
-var obeyRobotsTxt = true;
-//request('http://www.gsmarena.com/robots.txt', function(err, response, html) {
-//    console.log(html);
-//    //console.log(isAllowed("www.dfds.com"));
-//    //console.log(isAllowed("www.gsmarena.com/postopinion.php3"));
-//    //console.log(isAllowed("http://www.gsmarena.com/postcomment.php3"));
-//    //console.log(isAllowed("www.gsmarena.com/forum/images/stuff"));
-//    //console.log(isAllowed("http://www.gsmarena.com/new/stuff.php3"));
-//    //console.log(isAllowed("http://www.gsmarena.com/nice-phone.php3"));
-//});
+/**
+ * Full example:
+ * getRobotsFor(url, function(err, response, html) {var rules = forRobotsOn(url, html)})
+ * @param robotTxtUrl The url of where the robots.txt file is located 'http://www.example.com/robots.txt'
+ * @param callback Example:
+ * getRobotsFor('http://www.example.com/robots.txt', function (err, response, html) {//handle raw response.});
+ */
+var getRobotsFor = function (robotTxtUrl, callback) {
+    request(robotTxtUrl, callback);
+};
+/**
+ * Just a cache of Gsmarena's robots.txt file. TODO: Should move this to business logic.
+ * @type {string}
+ */
 var cachedGsmarenaRobotsTxt =
     'User-agent: *\n' +
     'Disallow: /postopinion.php3\n' +
@@ -39,19 +43,10 @@ var cachedGsmarenaRobotsTxt =
     "User - agent: Mediapartners - Google\n" +
     "Disallow:\n";
 
-var robots = robotsParser('http://www.gsmarena.com/robots.txt', cachedGsmarenaRobotsTxt);
-
-/**
- * Only supports http and https right now.
- *
- * @param url The url to test.
- * @param ua User agent for robots.txt specifics. Mostly * is ok.
- */
-isAllowed = function (url, ua) {
-    if (!url.match(/^https?:\/\//)) {
-        url = "http://" + url;
-    }
-    return obeyRobotsTxt && robots.isAllowed(url, ua);
+var forRobotsOn = function(url, contents){
+    return robotsParser(url, contents);
 };
 
-module.exports.isAllowed = isAllowed;
+module.exports.getRobotsFor = getRobotsFor;
+module.exports.cachedGsmarenaRobotsTxt = cachedGsmarenaRobotsTxt;
+module.exports.forRobotsOn = forRobotsOn;

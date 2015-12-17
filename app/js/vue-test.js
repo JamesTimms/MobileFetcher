@@ -1,10 +1,13 @@
 /**
  * Created by James on 08/12/2015.
  */
+var Vue = require("Vue");
 
-new Vue({
+var v = new Vue({
     el: '#app',
     data: {
+        crawling: true,
+        urls: [],
         devices: [
             {
                 name: 'iPhone6',
@@ -21,3 +24,4 @@ new Vue({
         ]
     }
 });
+module.exports = v;
