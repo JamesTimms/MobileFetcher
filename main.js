@@ -2,10 +2,8 @@
 
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
-var data = require('./app/js/data-parser.js');
-var dataParser = require('./app/js/data-parser.js');
-var import_io = require('./app/js/import-io.js');
 var config = require('./app/backend/config-loading.js');
+var webToMachine = require('./app/backend/scraping/test-crawl.js');
 const ipc = require('ipc');
 
 // Report crashes to our server.
@@ -45,20 +43,10 @@ app.on('ready', function () {
     });
 });
 
-//ipc.on('data-export', function(event, args) {
-//    var dataP = dataParser.DataParser();
-//    dataP.ParseData(args);
-//});
-
-ipc.on('data-contents', function (event, args) {
-    BrowserWindow.fromWebContents(event.sender).close();
-    if(!args) {
-        console.log('No data from api request. The api request was probably formed wrong.');
-        return;
-    }
-    mainWindow.webContents.send('import-io-data', args);
-    var dataP = dataParser.DataParser();
-    dataP.ParseData(args);
+ipc.on('x-ray', function (event, urlOrData) {
+    webToMachine(urlOrData, function (found) {
+        event.sender.send('results', found);
+    });
 });
 
 config.SetupJSONListeners();
