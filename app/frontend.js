@@ -4,10 +4,9 @@
  */
 'use strict';
 
-var ipc = require('ipc');
 var stuff = require('./backend/scraping/test-crawl.js');
 
-stuff("http://www.gsmarena.com/samsung_galaxy_s6-6849.php");
+stuff.extact("http://www.gsmarena.com/samsung_galaxy_s6-6849.php");
 
 ///**
 // * @return {string}
@@ -38,7 +37,7 @@ stuff("http://www.gsmarena.com/samsung_galaxy_s6-6849.php");
 //ipc.on('import-io-data', function (arg) {
 //    console.log(arg);
 //});
-},{"./js/scraping/test-crawl.js":2,"ipc":undefined}],2:[function(require,module,exports){
+},{"./backend/scraping/test-crawl.js":2}],2:[function(require,module,exports){
 /**
  * Created by James on 08/12/2015.
  */
@@ -200,22 +199,16 @@ var ipc = require('ipc');
 //};
 ////-----------------------------------------------x-ray web reading------------------------------------------------------
 
-//
-//function isEmpty(object) {
-//    for (var key in object) {
-//        if (object.hasOwnProperty(key)) {
-//            return false;
-//        }
-//    }
-//    return true;
-//}
 
 //myCrawler.queue.
 //#body > div > div.review-header.hreview > div > div.article-info-line.page-specs.light.border-bottom > h1
 var extract = function (urlOrData) {
-    console.log("Hi from extract");
     ipc.send('x-ray', urlOrData);
 };
 
-module.exports = extract;
+ipc.on('results', function (found) {
+    console.log(found);
+});
+
+module.exports.extact = extract;
 },{"ipc":undefined}]},{},[1]);

@@ -3,7 +3,7 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 var config = require('./app/backend/config-loading.js');
-var webToMachine = require('./app/backend/scraping/test-crawl.js');
+var webToMachine = require('./app/backend/scraping/test-scrap.js');
 const ipc = require('ipc');
 
 // Report crashes to our server.
@@ -44,7 +44,7 @@ app.on('ready', function () {
 });
 
 ipc.on('x-ray', function (event, urlOrData) {
-    webToMachine(urlOrData, function (found) {
+    webToMachine.extract(urlOrData, function (found) {
         event.sender.send('results', found);
     });
 });

@@ -159,9 +159,6 @@ var ipc = require('ipc');
 //};
 ////-----------------------------------------------x-ray web reading------------------------------------------------------
 
-
-//myCrawler.queue.
-//#body > div > div.review-header.hreview > div > div.article-info-line.page-specs.light.border-bottom > h1
 var extract = function (urlOrData) {
     ipc.send('x-ray', urlOrData);
 };
@@ -170,4 +167,4 @@ ipc.on('results', function (found) {
     console.log(found);
 });
 
-module.exports = extract;
+module.exports.extact = extract;

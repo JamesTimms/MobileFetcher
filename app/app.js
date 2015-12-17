@@ -3,10 +3,9 @@
  */
 'use strict';
 
-var ipc = require('ipc');
 var stuff = require('./backend/scraping/test-crawl.js');
 
-stuff("http://www.gsmarena.com/samsung_galaxy_s6-6849.php");
+stuff.extact("http://www.gsmarena.com/samsung_galaxy_s6-6849.php");
 
 ///**
 // * @return {string}
