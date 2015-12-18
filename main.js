@@ -3,7 +3,7 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 const ipc = require('ipc');
-const mobileFetcher = require('app/backend/mobileFetcher/mobileFetcher.js');
+var mobileFetcher = require('./app/backend/mobileFetcher/mobileFetcher.js');
 
 // Report crashes to our server.
 //require('crash-reporter').start();
@@ -39,5 +39,10 @@ app.on('ready', function () {
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null;
+    });
+
+    new mobileFetcher(function (queuedItem) {
+        //onFetchComplete callback
+        mainWindow.webContents.send('fetch-complete', queuedItem.url);
     });
 });

@@ -4,6 +4,20 @@
 var robotsParser = require('robots-parser');
 var request = require('request');
 
+function RobotsTxt(url, contents) {
+    this.r = robotsParser(url, contents);
+    this.hi = 'hi'
+    this.fun = function () {
+    };
+    this.isAllowed = function () {
+        var robotRules = this;
+        return function (parsedURL) {
+            var _r = robotRules.isAllowed(parsedURL.protocol + "://" + parsedURL.host + parsedURL.path);
+            return (_r == undefined) ? false : _r;
+        };
+    };
+}
+
 /**
  * Just a cache of Gsmarena's robots.txt file. TODO: Should move this to business logic.
  * @type {string}
@@ -33,15 +47,6 @@ module.exports.cachedGsmarenaRobotsTxt =
     "User - agent: Mediapartners - Google\n" +
     "Disallow:\n";
 
-function RobotsTxt(url, contents) {
-    this.r = robotsParser(url, contents);
-}
-
-RobotsTxt.prototype.isAllowed = function (parsedURL) {
-    var _r = this.r.isAllowed(parsedURL.protocol + "://" + parsedURL.host + parsedURL.path);
-    return (_r == undefined) ? false : _r;
-};
-
 /**
  * Full example:
  * getRobotsFor(url, function(err, response, html) {var rules = forRobotsOn(url, html)})
@@ -49,8 +54,8 @@ RobotsTxt.prototype.isAllowed = function (parsedURL) {
  * @param callback Example:
  * getRobotsFor('http://www.example.com/robots.txt', function (err, response, html) {//handle raw response.});
  */
-RobotsTxt.getRobotsFor = function (robotTxtUrl, callback) {
-    request(robotTxtUrl, callback);
-};
+//RobotsTxt.getRobotsFor = function (robotTxtUrl, callback) {
+//    request(robotTxtUrl, callback);
+//};
 
-module.exports = RobotsTxt;
+module.exports.r = RobotsTxt;

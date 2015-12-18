@@ -4,9 +4,9 @@
 var Vue = require("Vue");
 
 var v = new Vue({
-    el: '#app',
+    el: '#data',
     data: {
-        crawling: true,
+        crawling: false,
         urls: [],
         devices: [
             {
