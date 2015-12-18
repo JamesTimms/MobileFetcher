@@ -43,3 +43,4 @@ fabric.properties
 /app/backend/crawler/phone-data
 cacheHere
 /crawledUrls.json
+/app/frontend.js
