@@ -41,8 +41,5 @@ app.on('ready', function () {
         mainWindow = null;
     });
 
-    new mobileFetcher(function (queuedItem) {
-        //onFetchComplete callback
-        mainWindow.webContents.send('fetch-complete', queuedItem.url);
-    });
+    new mobileFetcher(mainWindow.webContents);
 });

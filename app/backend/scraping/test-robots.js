@@ -6,9 +6,6 @@ var request = require('request');
 
 function RobotsTxt(url, contents) {
     this.r = robotsParser(url, contents);
-    this.hi = 'hi'
-    this.fun = function () {
-    };
     this.isAllowed = function () {
         var robotRules = this;
         return function (parsedURL) {

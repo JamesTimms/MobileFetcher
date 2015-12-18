@@ -18,6 +18,10 @@ ipc.on('fetch-complete', function (url) {
     vue.$data.urls.push(url);
 });
 
+ipc.on('extracted-data', function (found) {
+    console.log(found);
+});
+
 ipc.send('start-crawl');
 
 var pauseCrawl = function () {

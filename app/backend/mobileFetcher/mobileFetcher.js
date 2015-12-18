@@ -14,8 +14,21 @@ var Crawler = require('../Crawler/simple-crawler.js');//TODO: Make interface.
 //        event.sender.send('results', found);
 //    });
 //});
-module.exports = function MobileFetcher(fetchCallback) {
-    var crawler = new Crawler(fetchCallback);
+module.exports = function MobileFetcher(webContents) {
+    var crawler = new Crawler();
+
+    crawler.c.on('queueadd', function (queuedItem) {
+        //onFetchComplete callback
+        //console.log("Queued Item!");
+        webContents.send('fetch-complete', queuedItem.url);
+    });
+
+    crawler.c.on("fetchcomplete", function (queueItem, responseBuffer, response) {
+        console.log("Fetch Complete!");
+        Extractor(responseBuffer, function (found) {
+            webContents.send('extracted-data', found);
+        });
+    });
 
     ipc.on('start-crawl', function () {
         crawler.start();

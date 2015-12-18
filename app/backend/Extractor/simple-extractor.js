@@ -40,4 +40,4 @@ var extract = function (urlOrData, callback) {
     });
 };
 
-module.exports.extract = extract;
+module.exports = extract;
