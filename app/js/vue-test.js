@@ -6,8 +6,12 @@ var Vue = require("Vue");
 var v = new Vue({
     el: '#data',
     data: {
-        crawling: false,
-        urls: [],
+        crawling: true,
+        urls: ['example'],
+        functions: {
+            pauseCrawl: function(){},
+            resumeCrawl: function(){}
+        },
         devices: [
             {
                 name: 'iPhone6',

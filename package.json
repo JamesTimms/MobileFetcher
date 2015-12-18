@@ -8,7 +8,8 @@
     "exe": "electron-builder ../MobileFetcher --platform=win --out=../Build/MobileFetcher --config=packager.json",
     "full-build": "npm run package && npm run exe",
     "minify": "grunt --gruntfile ./node_modules/bootstrap/Gruntfile.js dist && mv ./node_modules/bootstrap/dist/ ./",
-    "browserify": "browserify --im app/app.js -o app/frontend.js"
+    "browserify": "browserify --im app/app.js -o app/frontend.js",
+    "watchify": "watchify --im app/app.js -o app/frontend.js -v"
   },
   "devDependencies": {
     "assert": "^1.3.0",
@@ -18,7 +19,8 @@
     "electron-prebuilt": "^0.30.3",
     "grunt": "^0.4.5",
     "mocha": "^2.3.4",
-    "nconf": "^0.7.2"
+    "nconf": "^0.7.2",
+    "watchify": "^3.6.1"
   },
   "dependencies": {
     "bootstrap": "^3.3.6",

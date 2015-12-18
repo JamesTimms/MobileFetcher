@@ -6,14 +6,6 @@
 var ipc = require('ipc');
 var vue = require('./js/vue-test.js');
 
-//var extract = function (urlOrData) {
-//    ipc.send('x-ray', urlOrData);
-//};
-//
-//ipc.on('results', function (found) {
-//
-//});
-
 ipc.on('fetch-complete', function (url) {
     vue.$data.urls.push(url);
 });
@@ -23,15 +15,17 @@ ipc.on('extracted-data', function (found) {
 });
 
 ipc.send('start-crawl');
+vue.$data.crawling = true;
 
 var pauseCrawl = function () {
-    ipc.send('pause-crawler', function () {
-        vue.$data.crawling = false;
-    });
+    ipc.send('pause-crawler');
+    vue.$data.crawling = false;
 };
 
 var resumeCrawl = function () {
-    ipc.send('resume-crawler', function () {
-        vue.$data.crawling = true;
-    });
+    ipc.send('resume-crawler');
+    vue.$data.crawling = true;
 };
+
+vue.$data.functions.pauseCrawl = pauseCrawl;
+vue.$data.functions.resumeCrawl = resumeCrawl;

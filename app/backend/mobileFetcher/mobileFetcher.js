@@ -34,6 +34,6 @@ module.exports = function MobileFetcher(webContents) {
         crawler.start();
     });
 
-    ipc.on('pause-crawler', crawler.pause);
-    ipc.on('resume-crawler', crawler.resume);
+    ipc.on('pause-crawler', crawler.buildPause());
+    ipc.on('resume-crawler', crawler.buildResume());
 };
