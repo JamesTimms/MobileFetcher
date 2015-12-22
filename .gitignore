@@ -33,14 +33,6 @@ fabric.properties
 /import_io.json
 /dist
 /npm-debug.log
-/app/backend/crawler/phone-data
-/app/backend/crawler/crawler-db
-/app/backend/crawler/data.txt
-/app/backend/crawler
-/app/backend/crawler/crawl_config.json
-/app/backend/crawler/data.txt
-/app/backend/crawler/gsmarena_spider.json
-/app/backend/crawler/phone-data
 cacheHere
 /crawledUrls.json
 /app/frontend.js
