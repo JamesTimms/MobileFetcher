@@ -4,6 +4,7 @@
 const ipc = require('ipc');
 var Extractor = require('../Extractor/simple-extractor.js');//TODO: Make interface.
 var Crawler = require('../Crawler/simple-crawler.js');//TODO: Make interface.
+var dataParser = require('../../js/data-parser.js');
 
 //var getGsmarenaDataFrom = function (callback, urlOrData) {
 //    Extractor.extract(urlOrData, callback);
@@ -27,6 +28,7 @@ module.exports = function MobileFetcher(webContents) {
         console.log("Fetch Complete!");
         Extractor(responseBuffer, function (found) {
             webContents.send('extracted-data', found);
+            dataParser(found);
         });
     });
 
