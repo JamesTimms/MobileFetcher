@@ -15,3 +15,15 @@ describe('HELLO WORLD', function() {
         });
     });
 });
+var r = require('../app/backend/scraping/test-robots.js');
+describe('testing Robots', function () {
+    describe('Check the object exists.', function () {
+        it('should return robot oject', function () {
+            var _r = new r.r('http://www.fake.com',
+                'User-agent: *\n' +
+                'Disallow: /\n');
+            assert.equal(typeof _r, 'object');
+            assert.equal('hi', 'hi');
+        });
+    });
+});

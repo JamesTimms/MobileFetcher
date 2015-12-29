@@ -1,5 +1,10 @@
-.ee-style{
-    background-image: linear-gradient(to bottom,#009c9c,#35b1b3);
+.ee-style {
+    background-image: linear-gradient(to bottom, #009c9c, #35b1b3);
     font-family: Rubrik, Arial, sans-serif;
     /*border: 1px solid #0f0f0f;*/
+}
+
+.ee-table-success {
+    background: #dff0d8;
+    font-family: Arial, sans-serif;
 }

@@ -5,14 +5,15 @@ var ipc = require('ipc');
 var Crawler = require("simplecrawler");
 var filters = require('./rules.js');
 var websiteRules = require('../scraping/test-robots.js');//TODO: Make interface.
+//var extract = require('../Extractor/simple-extractor.js');
 
 function GsmarenaCrawler() {
-    this.c = new Crawler("www.gsmarena.com", "/makers.php3", 80);
-    this.c.maxDepth = 2;
+    this.c = new Crawler("www.gsmarena.com", "/apple_iphone_6s_plus-7243.php", 80);//this.c = new Crawler("www.gsmarena.com", "/makers.php3", 80);//
+    this.c.maxDepth = 1;
     this.c.maxConcurrency = 3;
     this.c.interval = 500;
     this.c.decodeResponses = true;
-    //c.cache = new Crawler.cache('./cacheHere/cache');//TODO: Cache not working for some reason.
+    //this.c.cache = new Crawler.cache('./gsmArenaCache');//TODO: Simple-crawler's cache is broken right now...
 
     //-----------------------------------------------rules-----------------------------------------------------//
     var robotRules = new websiteRules.r('http://www.gsmarena.com/robots.txt', websiteRules.cachedGsmarenaRobotsTxt);
@@ -25,13 +26,7 @@ function GsmarenaCrawler() {
     });
 
     this.c.on("complete", function () {
-        console.log("Completed the crawl");
-        console.log(this.c.queue);
         this.c.stop();
-        //c.queue.forEach(function (webpage) {
-        //        extract(webpage.protocol + "://" + webpage.host + webpage.url);
-        //    }
-        //)
     }.bind(this));
 
     this.c.on("queueerror", function (errorData, URLData) {

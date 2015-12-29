@@ -19,9 +19,13 @@
 
 <div id="data" class="table-responsive">
 
-    <button v-if="crawling" v-on:click="functions.pauseCrawl" type="button" class="btn btn-primary btn-lg btn-block">Pause Crawl</button>
-    <button v-else type="button" v-on:click="functions.resumeCrawl" class="btn btn-secondary btn-lg btn-block">Resume Crawl</button>
-    <table class="table table-striped">
+    <button v-if="crawling" v-on:click="functions.pauseCrawl" type="button" class="btn btn-primary btn-lg btn-block">
+        Pause Crawl
+    </button>
+    <button v-else type="button" v-on:click="functions.resumeCrawl" class="btn btn-secondary btn-lg btn-block">Resume
+        Crawl
+    </button>
+    <table class="table">
         <thead>
         <tr>
             <th>#</th>
@@ -32,13 +36,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="url in urls">
-            <td>{{url}}</td>
-            <td>Lorem</td>
-            <td>ipsum</td>
-            <td>dolor</td>
-            <td>sit</td>
-        </tr>
+        <template v-for="url in urls">
+            <tr v-bind:class="{'success':url.found==true}">
+                <td>{{$index}}</td>
+                <td>{{url.u}}</td>
+                <td>{{url.found}}</td>
+            </tr>
+        </template>
         </tbody>
     </table>
 </div>

@@ -28,8 +28,19 @@ module.exports = function MobileFetcher(webContents) {
         console.log("Fetch Complete!");
         Extractor(responseBuffer, function (found) {
             webContents.send('extracted-data', found);
-            dataParser(found);
+            //dataParser(found);
         });
+    });
+
+
+    crawler.c.on("complete", function () {
+        console.log("Completed the crawl");
+        crawler.c.queue.forEach(function (webpage) {
+                Extractor(webpage.url, function (found) {
+                    webContents.send('extracted-data', found);
+                });
+            }
+        )
     });
 
     ipc.on('start-crawl', function () {
