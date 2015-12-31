@@ -9,9 +9,8 @@ var vue = require('./js/vue-test.js');
 ipc.on('fetch-complete', function (url) {
     vue.$data.urls.push({
         u: url,
-        found: ''
+        found: 'looking'
     });
-    console.log(vue.$data.urls[0]);
 });
 
 ipc.on('extracted-data', function (found) {

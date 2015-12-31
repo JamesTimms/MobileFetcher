@@ -9,7 +9,7 @@ var v = new Vue({
         crawling: true,
         urls: [{
             u: 'example.com',
-            found: 'false'
+            found: 'no'
         }],
         functions: {
             pauseCrawl: function () {

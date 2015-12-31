@@ -37,7 +37,7 @@
         </thead>
         <tbody>
         <template v-for="url in urls">
-            <tr v-bind:class="{'success':url.found==true}">
+            <tr v-bind:class="{'success':url.found==yes, 'failure':url.found==no}">
                 <td>{{$index}}</td>
                 <td>{{url.u}}</td>
                 <td>{{url.found}}</td>

@@ -19,7 +19,6 @@ module.exports = function MobileFetcher(webContents) {
     var crawler = new Crawler();
 
     crawler.c.on('queueadd', function (queuedItem) {
-        //onFetchComplete callback
         //console.log("Queued Item!");
         webContents.send('fetch-complete', queuedItem.url);
     });
@@ -28,10 +27,16 @@ module.exports = function MobileFetcher(webContents) {
         console.log("Fetch Complete!");
         Extractor(responseBuffer, function (found) {
             webContents.send('extracted-data', found);
-            //dataParser(found);
+            dataParser('../storage/test_data.json', found);
         });
     });
 
+    //crawler.c.discoverResources = function (buf, queueItem) {
+    //    console.log(buf);
+    //    console.log(queueItem);
+    //    crawler.c.queueURL('www.gsmarena.com/makers.php3', queueItem);
+    //    return [];
+    //};
 
     crawler.c.on("complete", function () {
         console.log("Completed the crawl");

@@ -4,8 +4,8 @@ var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 const ipc = require('ipc');
 var mobileFetcher = require('./app/backend/mobileFetcher/mobileFetcher.js');
+var dataParser = require('./app/js/data-parser.js');
 
-//IM0008925567
 // Report crashes to our server.
 //require('crash-reporter').start();
 
@@ -43,4 +43,12 @@ app.on('ready', function () {
     });
 
     new mobileFetcher(mainWindow.webContents);
+});
+
+// Error handling & logging for otherwise unhandled errors
+process.on('uncaughtException', function (e) {
+    console.log(new Date().toString(), e.stack || e);
+    var d = new Date();
+    dataParser.logError('logs-' + d.getYear() + '-' + d.getMonth() + '-' + d.getDay()
+        + '.txt', e.stack || e);
 });

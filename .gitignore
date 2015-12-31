@@ -37,3 +37,4 @@ cacheHere
 /crawledUrls.json
 /app/frontend.js
 gsmArenaCache
+/app/storage/logs

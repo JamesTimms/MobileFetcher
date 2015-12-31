@@ -8,17 +8,18 @@ var websiteRules = require('../scraping/test-robots.js');//TODO: Make interface.
 //var extract = require('../Extractor/simple-extractor.js');
 
 function GsmarenaCrawler() {
-    this.c = new Crawler("www.gsmarena.com", "/apple_iphone_6s_plus-7243.php", 80);//this.c = new Crawler("www.gsmarena.com", "/makers.php3", 80);//
-    this.c.maxDepth = 1;
+    //this.c = new Crawler("www.gsmarena.com", "/makers.php3", 80);
+    this.c = new Crawler("encrypted.google.com", "/", 80);
+    this.c.maxDepth = 2;
     this.c.maxConcurrency = 3;
     this.c.interval = 500;
     this.c.decodeResponses = true;
     //this.c.cache = new Crawler.cache('./gsmArenaCache');//TODO: Simple-crawler's cache is broken right now...
 
     //-----------------------------------------------rules-----------------------------------------------------//
-    var robotRules = new websiteRules.r('http://www.gsmarena.com/robots.txt', websiteRules.cachedGsmarenaRobotsTxt);
-    this.addFetchCondition(filters);
-    this.addFetchCondition(robotRules.isAllowed());
+    //var robotRules = new websiteRules.r('http://www.gsmarena.com/robots.txt', websiteRules.cachedGsmarenaRobotsTxt);
+    //this.addFetchCondition(filters);
+    //this.addFetchCondition(robotRules.isAllowed());
     //---------------------------------------------------------------------------------------------------------//
 
     this.c.on("fetchstart", function (queueItem, requestOptions) {
