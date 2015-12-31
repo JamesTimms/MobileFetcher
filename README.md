@@ -1,8 +1,6 @@
 # Mobile Fetcher
 
-**Clone and run for a quick way to see an Electron in action.**
-
-To learn about electron I'd suggest following this tutorial(https://github.com/atom/electron-quick-start)
+**Running the application**
 
 To run the application once setup run...
 ```bash
@@ -13,7 +11,9 @@ $ electron .
 
 You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start).
 
-## To Use
+## Setup
+
+Learn about electron here(https://github.com/atom/electron-quick-start)
 
 To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
