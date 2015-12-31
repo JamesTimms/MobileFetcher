@@ -1,12 +1,8 @@
-# electron-quick-start
+# Mobile Fetcher
 
 **Clone and run for a quick way to see an Electron in action.**
 
-A basic Electron application needs just these files:
-
-- `index.html` - A web page to render.
-- `main.js` - Starts the app and creates a browser window to render HTML.
-- `package.json` - Points to the app's main file and lists its details and dependencies.
+To learn about electron I'd suggest following this tutorial(https://github.com/atom/electron-quick-start)
 
 To run the application once setup run...
 ```bash
