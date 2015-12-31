@@ -19,7 +19,7 @@ To clone and run this repository you'll need [Git](https://git-scm.com) and [Nod
 
 ```bash
 # Clone this repository
-£ git clone git@github.com:JamesTimms/MobileFetcher.git
+$ git clone git@github.com:JamesTimms/MobileFetcher.git
 # or
 $ git clone https://github.com/JamesTimms/MobileFetcher.git
 # Go into the repository
