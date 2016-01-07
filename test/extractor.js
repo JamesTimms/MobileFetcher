@@ -32,4 +32,13 @@ describe('testing extractor on gsmarena', function () {
             });
         });
     });
+    describe('another_galaxy_s6_test', function () {
+        it('should test', function (done) {
+            var localWebpage = fs.readFileSync('./test/gsmarena-cache/Samsung Galaxy S6 - Full phone specifications.html');
+            var cheerioObject = cheerio.load(localWebpage);
+            extractor(cheerioObject.html(), function (found) {
+                done();
+            });
+        });
+    });
 });

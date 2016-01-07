@@ -14,6 +14,23 @@ function isEmpty(object) {
     return true;
 }
 
+var cleanData = function (data, replaceOperation) {
+    if (typeof replaceOperation === 'undefined') return;
+    for (var _d in data) {
+        if (!data.hasOwnProperty(_d)) continue;
+        if (typeof data[_d] === 'object') {
+            cleanData(data[_d], replaceOperation);
+        } else {
+            if (typeof data[_d] !== 'string') {
+                console.log("Data cleaning failed. Variable wasn't a string.");
+                continue;
+            }
+            data[_d] = replaceOperation(data[_d], _d);
+        }
+    }
+    return data;
+};
+
 var extract = function (urlOrData, callback) {
     if (urlOrData == null || urlOrData === 'undefined') {
         return;
@@ -121,10 +138,19 @@ var extract = function (urlOrData, callback) {
                 console.log('Found nothing...');
                 return;
             }
+
+            var _found = cleanData(found, function (data, key) {
+                if (typeof data !== 'string') {
+                    console.log('Cleaning data: expected string but got ' + typeof data);
+                    return;
+                }
+                return data.replace(/\s+/g, '');
+            });
+            console.log(_found);
             if (typeof callback === "function") {
-                callback(found);
+                callback(_found);
             } else {
-                console.info(found);
+                console.info(_found);
             }
         });
     } catch (e) {
