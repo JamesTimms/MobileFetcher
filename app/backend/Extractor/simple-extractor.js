@@ -144,7 +144,7 @@ var extract = function (urlOrData, callback) {
                     console.log('Cleaning data: expected string but got ' + typeof data);
                     return;
                 }
-                return data.replace(/\s+/g, '');
+                return data.replace(/\s\s+/g, ' ');
             });
             console.log(_found);
             if (typeof callback === "function") {
