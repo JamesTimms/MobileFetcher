@@ -12,22 +12,23 @@ describe('testing extractor on gsmarena', function () {
             var localWebpage = fs.readFileSync('./test/gsmarena-cache/Samsung Galaxy S6 - Full phone specifications.html');
             var cheerioObject = cheerio.load(localWebpage);
             extractor(cheerioObject.html(), function (found) {
-                console.info(found);
                 assert.equal('Samsung Galaxy S6', found['title'], 'title failed');
                 assert.equal('GSM / HSPA / LTE', found['network']['technology'], 'technology failed');
                 assert.equal('GSM 850 / 900 / 1800 / 1900', found['network']['_2g'], '_2g failed');
                 assert.equal('HSDPA 850 / 900 / 1900 / 2100'
                     + 'HSDPA 850 / 900 / 1700 / 1900 / 2100 - G920T'
                     + ' - G920A', found['network']['_3g'] + found['network']['_3g_2'] + found['network']['_3g_3'], '_3g failed');
-                //assert.equal("'LTE band 1(2100), 2(1900), 3(1800), 4(1700/2100), 5(850), 7(2600), 8(900),\r\n" +
-                //    "                                12(700), 17(700), 18(800), 19(800), 20(800), 26(850) - G920F\r\n                            ',"
-                //    , found['_4g'], '_4g failed');
+                console.log(found['network']['_4g'] + found['network']['_4g_2'] + found['network']['_4g_3']);
+                assert.equal("LTE band 1(2100), 2(1900), 3(1800), 4(1700/2100), 5(850), 7(2600), 8(900), 12(700), 17(700), " +
+                    "18(800), 19(800), 20(800), 26(850) - G920F LTE band 1(2100), 2(1900), 3(1800), 4(1700/2100), 5(850), " +
+                    "7(2600), 8(900), 12(700), 17(700) - G920T LTE band 1(2100), 2(1900), 3(1800), 4(1700/2100), 5(850), " +
+                    "7(2600), 8(900), 17(700), 20(800) - G920A "
+                    , found['network']['_4g'] + found['network']['_4g_2'] + found['network']['_4g_3'], '_4g failed');
                 assert.equal('HSPA 42.2/5.76 Mbps, LTE Cat6 300/50 Mbps', found['network']['speed'], 'speed failed');
                 assert.equal('Yes', found['network']['gprs'], 'gprs failed');
                 assert.equal('Yes', found['network']['edge'], 'edge failed');
                 assert.equal('2015, March', found['launch']['announced'], 'release failed');
                 assert.equal('Available. Released 2015, April', found['launch']['status'], 'accouned failed');
-                //assert.equal('', found['']);
                 done();
             });
         });

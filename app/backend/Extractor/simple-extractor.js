@@ -146,7 +146,6 @@ var extract = function (urlOrData, callback) {
                 }
                 return data.replace(/\s\s+/g, ' ');
             });
-            console.log(_found);
             if (typeof callback === "function") {
                 callback(_found);
             } else {
