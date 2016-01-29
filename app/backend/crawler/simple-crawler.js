@@ -17,9 +17,9 @@ function GsmarenaCrawler() {
     //this.c.cache = new Crawler.cache('./gsmArenaCache');//TODO: Simple-crawler's cache is broken right now...
 
     //-----------------------------------------------rules-----------------------------------------------------//
-    //var robotRules = new websiteRules.r('http://www.gsmarena.com/robots.txt', websiteRules.cachedGsmarenaRobotsTxt);
-    //this.addFetchCondition(filters);
-    //this.addFetchCondition(robotRules.isAllowed());
+    var robotRules = new websiteRules.r('http://www.gsmarena.com/robots.txt', websiteRules.cachedGsmarenaRobotsTxt);
+    this.addFetchCondition(filters);
+    this.addFetchCondition(robotRules.isAllowed());
     //---------------------------------------------------------------------------------------------------------//
 
     this.c.on("fetchstart", function (queueItem, requestOptions) {

@@ -5,6 +5,7 @@ var BrowserWindow = require('browser-window');  // Module to create native brows
 const ipc = require('ipc');
 var mobileFetcher = require('./app/backend/mobileFetcher/mobileFetcher.js');
 var dataParser = require('./app/js/data-parser.js');
+var databaseORM = require('./app/models/sequelizeInit.js');
 
 // Report crashes to our server.
 //require('crash-reporter').start();
@@ -44,6 +45,8 @@ app.on('ready', function () {
 
     new mobileFetcher(mainWindow.webContents);
 });
+
+databaseORM();
 
 // Error handling & logging for otherwise unhandled errors
 process.on('uncaughtException', function (e) {

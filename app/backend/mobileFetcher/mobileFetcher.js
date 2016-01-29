@@ -15,6 +15,7 @@ var dataParser = require('../../js/data-parser.js');
 //        event.sender.send('results', found);
 //    });
 //});
+
 module.exports = function MobileFetcher(webContents) {
     var crawler = new Crawler();
 
@@ -26,8 +27,15 @@ module.exports = function MobileFetcher(webContents) {
     crawler.c.on("fetchcomplete", function (queueItem, responseBuffer, response) {
         console.log("Fetch Complete!");
         Extractor(responseBuffer, function (found) {
-            webContents.send('extracted-data', found);
-            dataParser('../storage/test_data.json', found);
+            if (function (_found) {
+                    return (typeof _found['title'] === 'undefined') || _found['title'] === '' ||
+                        (typeof _found['network'] === 'undefined') ||
+                        (typeof _found['network']['technology'] === 'undefined') || _found['network']['technology'] === '';
+                }(found)) {
+                webContents.send('extracted-data', "won't extract", queueItem.url);
+            }
+            webContents.send('extracted-data', found, queueItem.url);
+            //dataParser('../storage/test_data.json', found);//TODO: Update parser
         });
     });
 
