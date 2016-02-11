@@ -46,7 +46,7 @@ app.on('ready', function () {
     new mobileFetcher(mainWindow.webContents);
 });
 
-databaseORM();
+//databaseORM();//FIXME: Can't get sqlite3 working with sequilize due to sqlite3, electron & node-gyp issues.
 
 // Error handling & logging for otherwise unhandled errors
 process.on('uncaughtException', function (e) {
