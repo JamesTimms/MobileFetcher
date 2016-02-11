@@ -15,37 +15,37 @@ var init = function (done) {
         },
         storage: 'app/storage/database/mobile-fetcher-db'
     });
-
-    var mobileDevice = sequelize.define('mobileDevice', {
-        //id: {
-        //    type: Sequelize.INTEGER,
-        //    autoIncrement: true,
-        //    primaryKey: true
-        //},
-        name: {
-            type: Sequelize.STRING,
-            field: 'mobile_name'
-        }
-    });
-    console.log('creating...');
-
-    mobileDevice.sync({force: true}).then(function () {
-        console.log('now create first mobile device...');
-        return mobileDevice.create({
-            name: 'exampleName'
-        }, function () {
-            console.log('Failed to create example mobile device in database...');
-        });
-    }).then(function () {
-        console.log('and then...');
-    }).then(function () {
-        console.log('looking...');
-        mobileDevice.findAll().then(function (found) {
-            console.log('found?');
-            console.log(found[0]);
-            done();
-        });
-    });
+    //
+    //var mobileDevice = sequelize.define('mobileDevice', {
+    //    //id: {
+    //    //    type: Sequelize.INTEGER,
+    //    //    autoIncrement: true,
+    //    //    primaryKey: true
+    //    //},
+    //    name: {
+    //        type: Sequelize.STRING,
+    //        field: 'mobile_name'
+    //    }
+    //});
+    //console.log('creating...');
+    //
+    //mobileDevice.sync({force: true}).then(function () {
+    //    console.log('now create first mobile device...');
+    //    return mobileDevice.create({
+    //        name: 'exampleName'
+    //    }, function () {
+    //        console.log('Failed to create example mobile device in database...');
+    //    });
+    //}).then(function () {
+    //    console.log('and then...');
+    //}).then(function () {
+    //    console.log('looking...');
+    //    mobileDevice.findAll().then(function (found) {
+    //        console.log('found?');
+    //        console.log(found[0]);
+    //        done();
+    //    });
+    //});
 };
 
 module.exports = init;
