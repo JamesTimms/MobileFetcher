@@ -135,9 +135,16 @@ var extract = function (urlOrData, callback) {
                 return;
             }
             if (found === '' || isEmpty(found)) {
-                console.log('Found nothing...');
+                //console.log('Found nothing...');
                 return;
             }
+
+            if ((typeof found['title'] === 'undefined') || found['title'] === '' ||
+                (typeof found['network'] === 'undefined') ||
+                (typeof found['network']['technology'] === 'undefined') || found['network']['technology'] === '') {
+                //console.log('Found nothing...');
+                return;
+            }//FIXME: Hack. Need to move logic out.
 
             var _found = cleanData(found, function (data, key) {
                 if (typeof data !== 'string') {

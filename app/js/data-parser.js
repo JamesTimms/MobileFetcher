@@ -6,13 +6,14 @@
 var fs = require('fs');
 
 var DataParser = function (file, data) {
-    if (isArray(data)) {
-        data.forEach(function (_d) {
-            deviceDataToFile(file, _d)
-        })
-    } else {
-        deviceDataToFile(file, data);
-    }
+    //if (isArray(data)) {
+    //    data.forEach(function (_d) {
+    //        deviceDataToFile(file, _d)
+    //    })
+    //} else {
+    //    deviceDataToFile(file, data);
+    //}
+    deviceDataToFile(file, data);
 };
 
 var deviceDataToFile = function (file, data) {

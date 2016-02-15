@@ -25,23 +25,16 @@ module.exports = function MobileFetcher(webContents) {
     });
 
     crawler.c.on("fetchcomplete", function (queueItem, responseBuffer, response) {
-        console.log("Fetch Complete!");
+        //console.log("Fetch Complete!");
         Extractor(responseBuffer, function (found) {
-            if (function (_found) {
-                    return (typeof _found['title'] === 'undefined') || _found['title'] === '' ||
-                        (typeof _found['network'] === 'undefined') ||
-                        (typeof _found['network']['technology'] === 'undefined') || _found['network']['technology'] === '';
-                }(found)) {
-                webContents.send('extracted-data', "won't extract", queueItem.url);
-            }
             webContents.send('extracted-data', found, queueItem.url);
-            //dataParser('../storage/test_data.json', found);//TODO: Update parser
+            dataParser('../storage/test_data.json', found);//TODO: Update parser
         });
     });
 
     //crawler.c.discoverResources = function (buf, queueItem) {
     //    console.log(buf);
-    //    console.log(queueItem);
+    //    console.log(queueItem);`
     //    crawler.c.queueURL('www.gsmarena.com/makers.php3', queueItem);
     //    return [];
     //};
@@ -51,6 +44,7 @@ module.exports = function MobileFetcher(webContents) {
         crawler.c.queue.forEach(function (webpage) {
                 Extractor(webpage.url, function (found) {
                     webContents.send('extracted-data', found);
+                    dataParser('../storage/test_data.json', found);//TODO: Update parser
                 });
             }
         )

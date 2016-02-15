@@ -5,10 +5,7 @@ var BrowserWindow = require('browser-window');  // Module to create native brows
 const ipc = require('ipc');
 var mobileFetcher = require('./app/backend/mobileFetcher/mobileFetcher.js');
 var dataParser = require('./app/js/data-parser.js');
-var databaseORM = require('./app/models/sequelizeInit.js');
-
-// Report crashes to our server.
-//require('crash-reporter').start();
+//var databaseORM = require('./app/models/sequelizeInit.js');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

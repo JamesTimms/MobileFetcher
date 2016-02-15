@@ -17,7 +17,7 @@ ipc.on('extracted-data', function (found, url) {
     console.log('--------------------------------------');
     console.log('Extracted: ' + url);
     console.info(found);
-    //console.log(found['network']['technology']);//TODO: Debugging here to find out why some pages are extracted that shouldn't be
+    console.log(found['title']);//TODO: Debugging here to find out why some pages are extracted that shouldn't be
     console.log('--------------------------------------');
 });
 
