@@ -8,8 +8,8 @@ var websiteRules = require('../scraping/test-robots.js');//TODO: Make interface.
 //var extract = require('../Extractor/simple-extractor.js');
 
 function GsmarenaCrawler() {
-    this.c = new Crawler("www.gsmarena.com", "/makers.php3", 80);
-    //this.c = new Crawler("www.gsmarena.com", "/samsung_galaxy_s6-6849.php", 80);
+    //this.c = new Crawler("www.gsmarena.com", "/makers.php3", 80);
+    this.c = new Crawler("www.gsmarena.com", "/samsung_galaxy_s6-6849.php", 80);
     this.c.maxDepth = 3;
     this.c.maxConcurrency = 3;
     this.c.interval = 500;

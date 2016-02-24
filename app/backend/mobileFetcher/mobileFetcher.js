@@ -28,7 +28,7 @@ module.exports = function MobileFetcher(webContents) {
         //console.log("Fetch Complete!");
         Extractor(responseBuffer, function (found) {
             webContents.send('extracted-data', found, queueItem.url);
-            dataParser('../storage/test_data.json', found);//TODO: Update parser
+            dataParser('./app/storage/test_data.json', found);//TODO: Update parser
         });
     });
 

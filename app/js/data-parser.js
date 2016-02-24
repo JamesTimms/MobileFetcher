@@ -5,7 +5,7 @@
 
 var fs = require('fs');
 
-var DataParser = function (file, data) {
+var DataParser = function (file, data, callback) {
     //if (isArray(data)) {
     //    data.forEach(function (_d) {
     //        deviceDataToFile(file, _d)
@@ -13,25 +13,25 @@ var DataParser = function (file, data) {
     //} else {
     //    deviceDataToFile(file, data);
     //}
-    deviceDataToFile(file, data);
+    deviceDataToFile(file, data, callback);
 };
 
-var deviceDataToFile = function (file, data) {
+var deviceDataToFile = function (file, data, callback) {
     if (!data) {
         console.log('Failed to write to file because there was no data.');
         return;
     }
 
     try {
-        var json = JSON.parse(data);
+        //var json = JSON.parse(data);
         var _json = [];
-        _json.push({
-            name: json['results'][0]['name_of_phone'],
-            data: json['results']
-        });
-        fs.appendFile(file, JSON.stringify(_json), [], function () {
-            console.log('finished writing to file')
-        })
+        _json = data;
+        //_json.push({
+        //    name: data['results'][0]['name_of_phone'],
+        //    data: data['results']
+        //});
+        fs.writeFile(file, JSON.stringify(_json), [], callback);
+        console.log('end of parsing.');
     } catch (ex) {
         console.log("Failed to write JSON to file due to... " + ex);
     }
