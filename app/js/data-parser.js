@@ -23,15 +23,23 @@ var deviceDataToFile = function (file, data, callback) {
     }
 
     try {
-        //var json = JSON.parse(data);
         var _json = [];
-        _json = data;
-        //_json.push({
-        //    name: data['results'][0]['name_of_phone'],
-        //    data: data['results']
-        //});
+        _json.push({
+            MARKETING_NAME: data['title'],
+            FORM_FACTOR: '',
+            DEVICE_TYPE: '',
+            NETWORK_TECH: data['network']['technology'],
+            OS: data['platform']['OS'],
+            UE_CATEGORY: '',
+            IPV6_FLAT: '',
+            VoWFi_FLAG: '',
+            VoLTE_FLAG: '',
+            SCREEN_SIZE: data['display']['resolution'],//Might need to review this value. More data available here.
+            LAUNCH_DATE: data['launch']['status'],
+            MAX_SPEED: data['technology'],//Will need to do some inference here. Regex to find strings etc...
+            CHIPSET: ''
+        });
         fs.writeFile(file, JSON.stringify(_json), [], callback);
-        console.log('end of parsing.');
     } catch (ex) {
         console.log("Failed to write JSON to file due to... " + ex);
     }

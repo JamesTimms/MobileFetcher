@@ -109,9 +109,10 @@ describe('testing file writing and parser', function () {
             };
             dataParser('./test/misc/test-txt.json', json, function () {
                 fs.readFile('./test/misc/test-txt.json', 'utf8', function (e, d) {
-                    var _d = JSON.parse(d);
-                    assert.equal(_d['title'], "Samsung Galaxy S6 edge");
-                    assert.equal(_d['body']['Sim'], "Nano-SIM");
+                    var _d = JSON.parse(d)[0];
+                    //console.log(_d);
+                    assert.equal(_d['MARKETING_NAME'], "Samsung Galaxy S6 edge");
+                    assert.equal(_d['NETWORK_TECH'], "GSM / HSPA / LTE");
                     done();
                 });
             });
