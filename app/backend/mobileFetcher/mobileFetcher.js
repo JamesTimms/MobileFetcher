@@ -44,7 +44,7 @@ module.exports = function MobileFetcher(webContents) {
         crawler.c.queue.forEach(function (webpage) {
                 Extractor(webpage.url, function (found) {
                     webContents.send('extracted-data', found);
-                    dataParser('../storage/test_data.json', found);//TODO: Update parser
+                    dataParser('../storage/' + '' + 'test_data.csv', found);//TODO: Update parser
                 });
             }
         )

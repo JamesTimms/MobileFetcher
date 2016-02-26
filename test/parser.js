@@ -2,6 +2,7 @@ var assert = require('assert');
 var extractor = require('../app/backend/Extractor/simple-extractor.js');
 var fs = require('fs');
 var dataParser = require('../app/js/data-parser.js');
+var csv = require('csv');
 
 //Note: For some reason when downloading html page from gsmarena directly it is different to the html obtained from a
 //request or xray (which uses request) download. xray(webpageURL) is different to xray(localCopy).
@@ -13,6 +14,19 @@ describe('testing file writing and parser', function () {
                 done();
             })
         });
+    });
+    describe('csv test', function () {
+        it('should stringify some data into csv format', function (done) {
+            var input = [['1', '2', '3', '4'], ['a', 'b', 'c', 'd']];
+            var json = [
+                ["Samsung Galaxy S6 edge"],
+                ["asdasdas", "sdfdsfsdfs"]
+            ];
+            csv.stringify(json, function (err, output) {
+                assert.equal(output, '1,2,3,4\na,b,c,d\n');
+                done();
+            })
+        })
     });
     describe('gsmArena parser', function () {
         it('write to parser file correctly', function (done) {
@@ -107,12 +121,13 @@ describe('testing file writing and parser', function () {
                     "battery_life": " Endurance rating 73h "
                 }
             };
+            //fs.writeFileSync('./test/misc/test-txt.json', '');
             dataParser('./test/misc/test-txt.json', json, function () {
                 fs.readFile('./test/misc/test-txt.json', 'utf8', function (e, d) {
-                    var _d = JSON.parse(d)[0];
+                    var _d = JSON.parse(d);
                     //console.log(_d);
-                    assert.equal(_d['MARKETING_NAME'], "Samsung Galaxy S6 edge");
-                    assert.equal(_d['NETWORK_TECH'], "GSM / HSPA / LTE");
+                    assert.equal(_d['Samsung Galaxy S6 edge']['MARKETING_NAME'], "Samsung Galaxy S6 edge");
+                    assert.equal(_d['Samsung Galaxy S6 edge']['NETWORK_TECH'], "GSM / HSPA / LTE");
                     done();
                 });
             });
