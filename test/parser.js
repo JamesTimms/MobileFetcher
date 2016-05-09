@@ -23,7 +23,7 @@ describe('testing file writing and parser', function () {
                 ["asdasdas", "sdfdsfsdfs"]
             ];
             csv.stringify(json, function (err, output) {
-                assert.equal(output, '1,2,3,4\na,b,c,d\n');
+                assert.equal(output, 'Samsung Galaxy S6 edge\nasdasdas,sdfdsfsdfs\n');
                 done();
             })
         })
