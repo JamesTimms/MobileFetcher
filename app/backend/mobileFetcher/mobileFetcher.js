@@ -20,11 +20,9 @@ var fileWriter = '';
 
 module.exports = function MobileFetcher(webContents) {
     var crawler = new Crawler();
-    var d = new Date();
-    var fileName = '../storage/' + d.getYear() + '-' + d.getMonth() + '-' + d.getDay() + '_' + 'test_data' + '.csv';
-    fileWriter = new new dataParser(fileName, function() {
-        //File finished writing callback.
-    });
+    // var d = new Date();
+    // var fileName = '../storage/' + d.getYear() + '-' + d.getMonth() + '-' + d.getDay() + '_' + 'test_data' + '.csv';
+    fileWriter = new dataParser('./app/storage/test_data.csv');
 
     crawler.c.on('queueadd', function(queuedItem) {
         //console.log("Queued Item!");
@@ -34,7 +32,7 @@ module.exports = function MobileFetcher(webContents) {
     crawler.c.on("fetchcomplete", function(queueItem, responseBuffer, response) {
         //console.log("Fetch Complete!");
         Extractor(responseBuffer, function(found) {
-            webContents.send('extracted-data', found, queueItem.url);
+            // webContents.send('extracted-data', found, queueItem.url);
             fileWriter.deviceDataToFile(found);
         });
     });
@@ -50,7 +48,7 @@ module.exports = function MobileFetcher(webContents) {
         console.log("Completed the crawl");
         crawler.c.queue.forEach(function(webpage) {
             Extractor(webpage.url, function(found) {
-                webContents.send('extracted-data', found);
+                // webContents.send('extracted-data', found);
                 fileWriter.deviceDataToFile(found);
             });
         })
