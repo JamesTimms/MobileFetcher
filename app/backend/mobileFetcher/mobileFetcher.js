@@ -24,10 +24,10 @@ module.exports = function MobileFetcher(webContents) {
     // var fileName = '../storage/' + d.getYear() + '-' + d.getMonth() + '-' + d.getDay() + '_' + 'test_data' + '.csv';
     fileWriter = new dataParser('./app/storage/test_data.csv');
 
-    crawler.c.on('queueadd', function(queuedItem) {
+    // crawler.c.on('queueadd', function(queuedItem) {
         //console.log("Queued Item!");
-        webContents.send('fetch-complete', queuedItem.url);
-    });
+        // webContents.send('fetch-complete', queuedItem.url);
+    // });
 
     crawler.c.on("fetchcomplete", function(queueItem, responseBuffer, response) {
         //console.log("Fetch Complete!");

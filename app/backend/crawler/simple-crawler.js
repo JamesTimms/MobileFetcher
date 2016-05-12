@@ -1,7 +1,6 @@
 /**
  * Created by James on 08/12/2015.
  */
-var ipc = require('ipc');
 var Crawler = require("simplecrawler");
 var filters = require('./rules.js');
 var websiteRules = require('../scraping/test-robots.js');//TODO: Make interface.
@@ -22,17 +21,17 @@ function GsmarenaCrawler() {
     this.addFetchCondition(robotRules.isAllowed());
     //---------------------------------------------------------------------------------------------------------//
 
-    this.c.on("fetchstart", function (queueItem, requestOptions) {
-        console.log("Queue Started!");
-    });
+    // this.c.on("fetchstart", function (queueItem, requestOptions) {
+        // console.log("Queue Started!");
+    // });
 
     this.c.on("complete", function () {
         this.c.stop();
     }.bind(this));
 
-    this.c.on("queueerror", function (errorData, URLData) {
-        console.log("error with queue");
-    });
+    // this.c.on("queueerror", function (errorData, URLData) {
+        // console.log("error with queue");
+    // });
     this.c.on("fetcherror", function (queueItem, response) {
         console.log("error with fetch");
     });
