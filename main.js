@@ -4,7 +4,7 @@ var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 const ipc = require('ipc');
 var mobileFetcher = require('./app/backend/mobileFetcher/mobileFetcher.js');
-var dataParser = require('./app/js/data-parser.js');
+var errors = require('./app/js/data-parser.js').logError;
 //var databaseORM = require('./app/models/sequelizeInit.js');
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -49,6 +49,6 @@ app.on('ready', function () {
 process.on('uncaughtException', function (e) {
     console.log(new Date().toString(), e.stack || e);
     var d = new Date();
-    dataParser.logError('logs-' + d.getYear() + '-' + d.getMonth() + '-' + d.getDay()
+    errors('logs-' + d.getYear() + '-' + d.getMonth() + '-' + d.getDay()
         + '.txt', e.stack || e);
 });

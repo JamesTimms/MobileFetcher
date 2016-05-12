@@ -5,7 +5,21 @@
 //
 var fs = require('fs');
 var csv = require('csv-write-stream');
-var fileWriteStream = '';
+var csvExporter = '',
+    fileWriteStream = '';
+
+function DataParser(file, callback) {
+    //TODO: Add support for JSON exporter.
+    csvExporter = csv();
+    fileWriteStream = fs.createWriteStream(file);
+    if (callback) {
+        fileWriteStream.on('close', callback);
+    };
+    /* Need callback on WriteStream instead of CSV so the close event
+     * is fired after file has finished been written too.
+     */
+    csvExporter.pipe(fileWriteStream);
+}
 
 var translateDataFields = function(data) {
     var _d = {};
@@ -46,16 +60,8 @@ var translateDataFieldsCSV = function(data) {
     return _d;
 }
 
-function DataParser(file, callback) {
-    fileWriteStream = fs.createWriteStream(file);
-    if (callback) {
-        fileWriteStream.on('finish', callback);
-    }
-    // fileWriteStream.write("{", 'utf8');
-};
-
-DataParser.prototype.deviceDataToFile = function(data, callback) {
-    if (fileWriteStream == '') {
+DataParser.prototype.write = function(data) {
+    if (csvExporter == '') {
         console.log('File stream is closed. Cannot write to file.');
         return;
     }
@@ -64,31 +70,25 @@ DataParser.prototype.deviceDataToFile = function(data, callback) {
         return;
     }
 
-    var _d = translateDataFields(data);
-    _d = JSON.stringify(_d);
-
     try {
-        fileWriteStream.write(_d, 'utf8');
-        //var csv_data = [["MARKETING_NAME", "FORM_FACTOR"], [data['title'], '']];
-
-        //csv.generate({seed: 1, columns: 2, length: 20}, function(err, data){
-        //    csv.parse(data, function(err, data){
-        //        console.log(data);
-        //
-        //    });
-        //});
-        //console.log(csv_data);
-        //csv.stringify(csv_data, function (err, data) {
-        //    fs.appendFile(file + ".csv", data, [], callback);
-        //});
+        var _d = translateDataFieldsCSV(data);
+        csvExporter.write(_d, 'utf8');
     } catch (ex) {
         console.log("Failed to write JSON to file due to... " + ex);
     }
+}
+
+DataParser.prototype.deviceDataToFile = function(data) {
+    this.write(data);
 };
 
-DataParser.prototype.finished = function() {
-    fileWriteStream.end(); // fileWriteStream.end("}", 'utf8');
-    fileWriteStream = '';
+DataParser.prototype.end = function(data) {
+    if (data) {
+        csvExporter.end(translateDataFieldsCSV(data));
+    } else {
+        csvExporter.end();
+    }
+    csvExporter = '';
 }
 
 var logError = function(file, data) {
