@@ -25,7 +25,11 @@
     <button v-else type="button" v-on:click="functions.resumeCrawl" class="btn btn-secondary btn-lg btn-block">Resume
         Crawl
     </button>
-    <table class="table">
+    <div class="text-center lead">
+      <b>{{queueCount}}</b> web pages queued <span class="glyphicon glyphicon-search"></span></br></br>
+      <b>{{extractionCount}}</b> mobile devices extracted <span class="glyphicon glyphicon-download"></span>
+    </div>
+    <!-- <table class="table">
         <thead>
         <tr>
             <th>#</th>
@@ -44,7 +48,7 @@
             </tr>
         </template>
         </tbody>
-    </table>
+    </table> -->
 </div>
 
 <h2 class="sub-header">Phone Data</h2>

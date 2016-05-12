@@ -11,7 +11,7 @@ function GsmarenaCrawler() {
     this.c = new Crawler("www.gsmarena.com", "/samsung_galaxy_s6-6849.php", 80);
     this.c.maxDepth = 3;
     this.c.maxConcurrency = 3;
-    this.c.interval = 500;
+    this.c.interval = 1000;
     this.c.decodeResponses = true;
     //this.c.cache = new Crawler.cache('./gsmArenaCache');//TODO: Simple-crawler's cache is broken right now...
 

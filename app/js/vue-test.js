@@ -7,10 +7,12 @@ var v = new Vue({
     el: '#data',
     data: {
         crawling: true,
-        urls: [{
-            u: 'example.com',
-            found: 'no'
-        }],
+        // urls: [{
+        //     u: 'example.com',
+        //     found: 'no'
+        // }],
+        extractionCount: 0,
+        queueCount: 0,
         functions: {
             pauseCrawl: function () {
             },

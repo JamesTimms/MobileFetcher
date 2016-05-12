@@ -24,16 +24,17 @@ module.exports = function MobileFetcher(webContents) {
     // var fileName = '../storage/' + d.getYear() + '-' + d.getMonth() + '-' + d.getDay() + '_' + 'test_data' + '.csv';
     fileWriter = new dataParser('./app/storage/test_data.csv');
 
-    // crawler.c.on('queueadd', function(queuedItem) {
-        //console.log("Queued Item!");
-        // webContents.send('fetch-complete', queuedItem.url);
-    // });
+    crawler.c.on('queueadd', function(queuedItem) {
+        // console.log("Queued Item!");
+        webContents.send('queue-add', '');
+    });
 
     crawler.c.on("fetchcomplete", function(queueItem, responseBuffer, response) {
         //console.log("Fetch Complete!");
         Extractor(responseBuffer, function(found) {
             // webContents.send('extracted-data', found, queueItem.url);
             fileWriter.deviceDataToFile(found);
+            webContents.send('extraction-complete', '');
         });
     });
 
