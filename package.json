@@ -28,7 +28,7 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "buffered-reader": "^1.0.1",
-    "csv": "^0.4.6",
+    "csv-write-stream": "^2.0.0",
     "font-awesome": "^4.5.0",
     "js-crawler": "^0.3.8",
     "request": "^2.67.0",

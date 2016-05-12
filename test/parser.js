@@ -2,7 +2,7 @@ var assert = require('assert');
 var extractor = require('../app/backend/Extractor/simple-extractor.js');
 var fs = require('fs');
 var dataParser = require('../app/js/data-parser.js');
-var csv = require('csv');
+var csv = require('csv-write-stream');
 
 //Example output from extracting data from a page.
 var jsonExampleData = {
@@ -120,19 +120,43 @@ describe('testing file writing and parser', function() {
         });
     });
     describe('csv test', function() {
-        it('should stringify some data into csv format', function(done) {
-            var input = [
-                ['1', '2', '3', '4'],
-                ['a', 'b', 'c', 'd']
-            ];
-            var json = [
-                ["Samsung Galaxy S6 edge"],
-                ["asdasdas", "sdfdsfsdfs"]
-            ];
-            csv.stringify(json, function(err, output) {
-                assert.equal(output, 'Samsung Galaxy S6 edge\nasdasdas,sdfdsfsdfs\n');
-                done();
-            })
+        it('should stringify singluar data into csv format', function(done) {
+            var csvExporter = csv();
+            /* Need callback on WriteStream instead of CSV so the close event
+             * is fired after file has finished been written too.
+             */
+            var writeStream = fs.createWriteStream('./test/misc/test-txt.csv');
+            writeStream.on('finish', function() {
+                fs.readFile('./test/misc/test-txt.csv', 'utf8', function(e, d) {
+                    console.log(d);
+                    assert.equal(d, "MARKETING_NAME,FORM_FACTOR,DEVICE_TYPE,NETWORK_TECH,OS,UE_CATEGORY,IPV6_FLAG,VoWFi_FLAG,VoLTE_FLAG,SCREEN_SIZE,LAUNCH_DATE,MAX_SPEED,CHIPSET\n" +
+                    "Samsung Galaxy S6 edge,,,GSM / HSPA / LTE,\"Android OS, v5.0.2 (Lollipop), upgradable to v6.0.1 (Marshmallow)\",,,,,1440 x 2560 pixels (~577 ppi pixel density),\"Available. Released 2015, April\",,\n");
+                    done();
+                });
+            });
+            csvExporter.pipe(writeStream);
+            csvExporter.write(dataParser.translateDataFieldsCSV(jsonExampleData));
+            csvExporter.end();
+        })
+        it('should stringify multiple data into csv format', function(done) {
+            var csvExporter = csv();
+            var writeStream = fs.createWriteStream('./test/misc/test-txt2.csv');
+            /* Need callback on WriteStream instead of CSV so the close event
+             * is fired after file has finished been written too.
+             */
+            writeStream.on('close', function() {
+                fs.readFile('./test/misc/test-txt2.csv', 'utf8', function(e, d) {
+                    console.log(d);
+                    assert.equal(d, "MARKETING_NAME,FORM_FACTOR,DEVICE_TYPE,NETWORK_TECH,OS,UE_CATEGORY,IPV6_FLAG,VoWFi_FLAG,VoLTE_FLAG,SCREEN_SIZE,LAUNCH_DATE,MAX_SPEED,CHIPSET\n" +
+                        "Samsung Galaxy S6 edge,,,GSM / HSPA / LTE,\"Android OS, v5.0.2 (Lollipop), upgradable to v6.0.1 (Marshmallow)\",,,,,1440 x 2560 pixels (~577 ppi pixel density),\"Available. Released 2015, April\",,\n" +
+                        "Samsung Galaxy S6 edge,,,GSM / HSPA / LTE,\"Android OS, v5.0.2 (Lollipop), upgradable to v6.0.1 (Marshmallow)\",,,,,1440 x 2560 pixels (~577 ppi pixel density),\"Available. Released 2015, April\",,\n");
+                    // console.log(fs.readFileSync('./test/misc/test-txt2.csv', 'utf8'));
+                    done(); //File read to quickly.
+                });
+            });
+            csvExporter.pipe(writeStream);
+            csvExporter.write(dataParser.translateDataFieldsCSV(jsonExampleData));
+            csvExporter.end(dataParser.translateDataFieldsCSV(jsonExampleData));
         })
     });
     describe('gsmArena parser', function() {

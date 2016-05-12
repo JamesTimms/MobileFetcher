@@ -4,7 +4,7 @@
 'use strict';
 //
 var fs = require('fs');
-var csv = require('csv');
+var csv = require('csv-write-stream');
 var fileWriteStream = '';
 
 var translateDataFields = function(data) {
@@ -16,7 +16,26 @@ var translateDataFields = function(data) {
         NETWORK_TECH: data['network']['technology'],
         OS: data['platform']['OS'],
         UE_CATEGORY: '',
-        IPV6_FLAT: '',
+        IPV6_FLAG: '',
+        VoWFi_FLAG: '',
+        VoLTE_FLAG: '',
+        SCREEN_SIZE: data['display']['resolution'], //Might need to review this value. More data available here.
+        LAUNCH_DATE: data['launch']['status'],
+        MAX_SPEED: data['technology'], //Will need to do some inference here. Regex to find strings etc...
+        CHIPSET: ''
+    };
+    return _d;
+}
+
+var translateDataFieldsCSV = function(data) {
+    var _d = {
+        MARKETING_NAME: data['title'],
+        FORM_FACTOR: '',
+        DEVICE_TYPE: '',
+        NETWORK_TECH: data['network']['technology'],
+        OS: data['platform']['OS'],
+        UE_CATEGORY: '',
+        IPV6_FLAG: '',
         VoWFi_FLAG: '',
         VoLTE_FLAG: '',
         SCREEN_SIZE: data['display']['resolution'], //Might need to review this value. More data available here.
@@ -91,3 +110,4 @@ var logError = function(file, data) {
 module.exports = DataParser;
 module.exports.logError = logError;
 module.exports.translateDataFields = translateDataFields;
+module.exports.translateDataFieldsCSV = translateDataFieldsCSV;
