@@ -3,14 +3,14 @@
  */
 var Crawler = require("simplecrawler");
 var filters = require('./rules.js');
-var websiteRules = require('../scraping/test-robots.js');//TODO: Make interface.
+var websiteRules = require('../scraping/test-robots.js'); //TODO: Make interface.
 //var extract = require('../Extractor/simple-extractor.js');
 
 function GsmarenaCrawler() {
     //this.c = new Crawler("www.gsmarena.com", "/makers.php3", 80);
     this.c = new Crawler("www.gsmarena.com", "/samsung_galaxy_s6-6849.php", 80);
-    this.c.maxDepth = 3;
-    this.c.maxConcurrency = 3;
+    this.c.maxDepth = 4;
+    this.c.maxConcurrency = 4;
     this.c.interval = 1000;
     this.c.decodeResponses = true;
     //this.c.cache = new Crawler.cache('./gsmArenaCache');//TODO: Simple-crawler's cache is broken right now...
@@ -22,39 +22,39 @@ function GsmarenaCrawler() {
     //---------------------------------------------------------------------------------------------------------//
 
     // this.c.on("fetchstart", function (queueItem, requestOptions) {
-        // console.log("Queue Started!");
+    // console.log("Queue Started!");
     // });
 
-    this.c.on("complete", function () {
+    this.c.on("complete", function() {
         this.c.stop();
     }.bind(this));
 
     // this.c.on("queueerror", function (errorData, URLData) {
-        // console.log("error with queue");
+    // console.log("error with queue");
     // });
-    this.c.on("fetcherror", function (queueItem, response) {
-        console.log("error with fetch");
+    this.c.on("fetcherror", function(queueItem, response) {
+        console.log("error with fetch: " + queueItem);
     });
-    this.c.on("fetchdataerror", function (queueItem, response) {
-        console.log("error with fetch data");
+    this.c.on("fetchdataerror", function(queueItem, response) {
+        console.log("error with fetch data: " + queueItem);
     });
 
-    this.c.on("crawlstart", function () {
+    this.c.on("crawlstart", function() {
         console.log("Crawl Started!");
     });
 
 }
 
-GsmarenaCrawler.prototype.start = function () {
-    process.nextTick(function () {
+GsmarenaCrawler.prototype.start = function() {
+    process.nextTick(function() {
         this.c.start();
     }.bind(this));
 };
 
-GsmarenaCrawler.prototype.buildPause = function () {
+GsmarenaCrawler.prototype.buildPause = function() {
     var _c = this.c;
-    return function () {
-        _c.queue.freeze("crawledUrls.json", function (err) {
+    return function() {
+        _c.queue.freeze("crawledUrls.json", function(err) {
             if (err) {
                 console.log("FREEZE error: " + err);
             }
@@ -63,9 +63,9 @@ GsmarenaCrawler.prototype.buildPause = function () {
     }
 };
 
-GsmarenaCrawler.prototype.buildResume = function () {
+GsmarenaCrawler.prototype.buildResume = function() {
     var _c = this.c;
-    return function () {
+    return function() {
         _c.queue.defrost("crawledUrls.json");
         _c.start();
     };
@@ -76,7 +76,7 @@ GsmarenaCrawler.prototype.buildResume = function () {
  * @param shouldCrawl
  * return the id for the fetch condition.
  */
-GsmarenaCrawler.prototype.addFetchCondition = function (shouldCrawl) {
+GsmarenaCrawler.prototype.addFetchCondition = function(shouldCrawl) {
     return this.c.addFetchCondition(shouldCrawl);
 };
 

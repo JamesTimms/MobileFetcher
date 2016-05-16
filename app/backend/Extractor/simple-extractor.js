@@ -14,7 +14,7 @@ function isEmpty(object) {
     return true;
 }
 
-var cleanData = function (data, replaceOperation) {
+var cleanData = function(data, replaceOperation) {
     if (typeof replaceOperation === 'undefined') return;
     for (var _d in data) {
         if (!data.hasOwnProperty(_d)) continue;
@@ -31,7 +31,7 @@ var cleanData = function (data, replaceOperation) {
     return data;
 };
 
-var extract = function (urlOrData, callback) {
+var extract = function(urlOrData, callback) {
     if (urlOrData == null || urlOrData === 'undefined') {
         return;
     }
@@ -129,9 +129,12 @@ var extract = function (urlOrData, callback) {
                 audio_quality: '#specs-list > table:nth-child(15) > tr:nth-child(5) > td.nfo',
                 battery_life: '#specs-list > table:nth-child(15) > tr:nth-child(6) > td.nfo'
             }
-        })(function (err, found) {
+        })(function(err, found) {
             if (err) {
+                console.log("-----------------------------------------------------------------------------------");
                 console.log('There was an error in the webscraper: ' + err);
+                console.log(urlOrData);
+                console.log("-----------------------------------------------------------------------------------");
                 return;
             }
             if (found === '' || isEmpty(found)) {
@@ -144,9 +147,9 @@ var extract = function (urlOrData, callback) {
                 (typeof found['network']['technology'] === 'undefined') || found['network']['technology'] === '') {
                 //console.log('Found nothing...');
                 return;
-            }//FIXME: Hack. Need to move logic out.
+            } //FIXME: Hack. Need to move logic out.
 
-            var _found = cleanData(found, function (data, key) {
+            var _found = cleanData(found, function(data, key) {
                 if (typeof data !== 'string') {
                     console.log('Cleaning data: expected string but got ' + typeof data);
                     return;
@@ -160,7 +163,10 @@ var extract = function (urlOrData, callback) {
             }
         });
     } catch (e) {
+        console.log("-----------------------------------------------------------------------------------");
         console.log(e);
+        console.log(urlOrData);
+        console.log("-----------------------------------------------------------------------------------");
     }
 };
 
