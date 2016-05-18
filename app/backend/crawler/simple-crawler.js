@@ -7,10 +7,10 @@ var websiteRules = require('../scraping/test-robots.js'); //TODO: Make interface
 //var extract = require('../Extractor/simple-extractor.js');
 
 function GsmarenaCrawler() {
-    //this.c = new Crawler("www.gsmarena.com", "/makers.php3", 80);
-    this.c = new Crawler("www.gsmarena.com", "/samsung_galaxy_s6-6849.php", 80);
+    this.c = new Crawler("www.gsmarena.com", "/makers.php3", 80);
+    // this.c = new Crawler("www.gsmarena.com", "/samsung_galaxy_s6-6849.php", 80);
     this.c.maxDepth = 4;
-    this.c.maxConcurrency = 4;
+    this.c.maxConcurrency = 1;
     this.c.interval = 1000;
     this.c.decodeResponses = true;
     //this.c.cache = new Crawler.cache('./gsmArenaCache');//TODO: Simple-crawler's cache is broken right now...
@@ -26,6 +26,7 @@ function GsmarenaCrawler() {
     // });
 
     this.c.on("complete", function() {
+        console.log("Finished crawl!");
         this.c.stop();
     }.bind(this));
 

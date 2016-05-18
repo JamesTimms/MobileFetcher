@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,21 +16,23 @@
     <link rel="icon" href="img/favicon.ico">
     <title>Mobile Fetcher</title>
 </head>
+
 <body>
 
-<div id="data" class="table-responsive">
+    <div id="data" class="table-responsive">
 
-    <button v-if="crawling" v-on:click="functions.pauseCrawl" type="button" class="btn btn-primary btn-lg btn-block">
-        Pause Crawl
-    </button>
-    <button v-else type="button" v-on:click="functions.resumeCrawl" class="btn btn-secondary btn-lg btn-block">Resume
-        Crawl
-    </button>
-    <div class="text-center lead">
-      <b>{{queueCount}}</b> web pages queued <span class="glyphicon glyphicon-search"></span></br></br>
-      <b>{{extractionCount}}</b> mobile devices extracted <span class="glyphicon glyphicon-download"></span>
-    </div>
-    <!-- <table class="table">
+        <button v-if="crawling" v-on:click="functions.pauseCrawl" type="button" class="btn btn-primary btn-lg btn-block">
+            Pause Crawl
+        </button>
+        <button v-else type="button" v-on:click="functions.resumeCrawl" class="btn btn-secondary btn-lg btn-block">Resume Crawl
+        </button>
+        <div class="text-center lead">
+            </br>
+            <b>{{queueCount}}</b> web pages queued <span class="glyphicon glyphicon-search"></span></br></br>
+            <b>{{fetchCount}}</b> inspected <span class="glyphicon glyphicon-zoom-in"></span></br></br>
+            <b>{{extractionCount}}</b> mobile devices extracted <span class="glyphicon glyphicon-download"></span>
+        </div>
+        <!-- <table class="table">
         <thead>
         <tr>
             <th>#</th>
@@ -49,9 +52,10 @@
         </template>
         </tbody>
     </table> -->
-</div>
+    </div>
 
-<h2 class="sub-header">Phone Data</h2>
+    <h2 class="sub-header">Phone Data</h2>
 </body>
 <script src="frontend.js"></script>
+
 </html>

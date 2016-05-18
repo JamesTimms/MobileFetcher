@@ -7,11 +7,11 @@ var ipc = require('ipc');
 var vue = require('./js/vue-test.js');
 
 ipc.on('extraction-complete', function (url) {
-    // vue.$data.urls.push({
-    //     u: url,
-    //     found: 'looking'
-    // });
     vue.$data.extractionCount += 1;
+});
+
+ipc.on('fetch-complete', function (url) {
+    vue.$data.fetchCount += 1;
 });
 
 ipc.on('queue-add', function (url) {

@@ -29,13 +29,18 @@ module.exports = function MobileFetcher(webContents) {
         webContents.send('queue-add', '');
     });
 
-    crawler.c.on("fetchcomplete", function(queueItem, responseBuffer, response) {
-        //console.log("Fetch Complete!");
+    var extract = function(responseBuffer) {
+        webContents.send('fetch-complete', '');
         Extractor(responseBuffer, function(found) {
             // webContents.send('extracted-data', found, queueItem.url);
             fileWriter.deviceDataToFile(found);
             webContents.send('extraction-complete', '');
         });
+    }
+
+    crawler.c.on("fetchcomplete", function(queueItem, responseBuffer, response) {
+        //console.log("Fetch Complete!");
+        extract(responseBuffer);
     });
 
     //crawler.c.discoverResources = function (buf, queueItem) {
@@ -48,10 +53,7 @@ module.exports = function MobileFetcher(webContents) {
     crawler.c.on("complete", function() {
         console.log("Completed the crawl");
         crawler.c.queue.forEach(function(webpage) {
-            Extractor(webpage.url, function(found) {
-                // webContents.send('extracted-data', found);
-                fileWriter.deviceDataToFile(found);
-            });
+            extract(webpage);
         })
     });
 

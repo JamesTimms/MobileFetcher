@@ -12,6 +12,7 @@ var v = new Vue({
         //     found: 'no'
         // }],
         extractionCount: 0,
+        fetchCount: 0,
         queueCount: 0,
         functions: {
             pauseCrawl: function () {

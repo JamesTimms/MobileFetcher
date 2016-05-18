@@ -164,6 +164,7 @@ var extract = function(urlOrData, callback) {
         });
     } catch (e) {
         console.log("-----------------------------------------------------------------------------------");
+        console.log('Error in extractor');
         console.log(e);
         console.log(urlOrData);
         console.log("-----------------------------------------------------------------------------------");
