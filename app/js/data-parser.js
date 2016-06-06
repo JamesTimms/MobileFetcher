@@ -111,7 +111,8 @@ var translateDataFieldsCSV = function(data) {
         tests_camera: data['tests']['camera'],
         tests_loud_speaker: data['tests']['loud_speaker'],
         tests_audio_quality: data['tests']['audio_quality'],
-        tests_battery_life: data['tests']['battery_life']
+        tests_battery_life: data['tests']['battery_life'],
+        source_url: data['source_url']
     };
     return _d;
 }

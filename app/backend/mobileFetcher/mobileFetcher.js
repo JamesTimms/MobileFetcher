@@ -29,18 +29,22 @@ module.exports = function MobileFetcher(webContents) {
         webContents.send('queue-add', '');
     });
 
-    var extract = function(responseBuffer) {
+    var extract = function(queueItem, responseBuffer) {
         webContents.send('fetch-complete', '');
         Extractor(responseBuffer, function(found) {
-            // webContents.send('extracted-data', found, queueItem.url);
+            found['source_url'] = queueItem.url;
             fileWriter.deviceDataToFile(found);
             webContents.send('extraction-complete', '');
         });
     }
 
     crawler.c.on("fetchcomplete", function(queueItem, responseBuffer, response) {
-        //console.log("Fetch Complete!");
-        extract(responseBuffer);
+        // console.log("Fetch Complete!");
+        // console.log("--------------------------------------------------------------------------------");
+        // console.log("queue items complete: " + crawler.c.queue.complete);
+        // console.log("queue items errors: " + crawler.c.queue.errors);
+        // console.log("--------------------------------------------------------------------------------");
+        extract(queueItem, responseBuffer);
     });
 
     //crawler.c.discoverResources = function (buf, queueItem) {
@@ -52,8 +56,12 @@ module.exports = function MobileFetcher(webContents) {
 
     crawler.c.on("complete", function() {
         console.log("Completed the crawl");
+        // console.log("--------------------------------------------------------------------------------");
+        // console.log("queue items complete: " + crawler.c.queue.complete();
+        // console.log("queue items errors: " + crawler.c.queue.errors();
+        // console.log("--------------------------------------------------------------------------------");
         crawler.c.queue.forEach(function(webpage) {
-            extract(webpage);
+            extract('', webpage);
         })
     });
 

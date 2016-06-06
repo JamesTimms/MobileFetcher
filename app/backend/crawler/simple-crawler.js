@@ -9,7 +9,7 @@ var websiteRules = require('../scraping/test-robots.js'); //TODO: Make interface
 function GsmarenaCrawler() {
     this.c = new Crawler("www.gsmarena.com", "/makers.php3", 80);
     // this.c = new Crawler("www.gsmarena.com", "/samsung_galaxy_s6-6849.php", 80);
-    this.c.maxDepth = 4;
+    this.c.maxDepth = 18;
     this.c.maxConcurrency = 1;
     this.c.interval = 1000;
     this.c.decodeResponses = true;
@@ -19,11 +19,16 @@ function GsmarenaCrawler() {
     var robotRules = new websiteRules.r('http://www.gsmarena.com/robots.txt', websiteRules.cachedGsmarenaRobotsTxt);
     this.addFetchCondition(filters);
     this.addFetchCondition(robotRules.isAllowed());
-    console.log("--------------------------------------------------------");
-    console.log("Applying filter rules");
-    console.log("robots disallowed: " + robotRules.isAllowed());
-    console.log("personal filter: " + filters);
-    console.log("--------------------------------------------------------");
+    this.addFetchCondition(function(parsedURL, queueItem) {
+      var nonPaginationLimit = 4;
+      return (queueItem.depth <= nonPaginationLimit
+        || !parsedURL.path.match(new RegExp("(^(https?:\/\/)?(www.)?gsmarena.com\/).*-phones-f-.*-.*-p.*")));
+    });
+    // console.log("--------------------------------------------------------");
+    // console.log("Applying filter rules");
+    // console.log("robots disallowed: " + robotRules.isAllowed());
+    // console.log("personal filter: " + filters);
+    // console.log("--------------------------------------------------------");
     //---------------------------------------------------------------------------------------------------------//
 
     // this.c.on("fetchstart", function (queueItem, requestOptions) {
@@ -78,7 +83,6 @@ GsmarenaCrawler.prototype.buildResume = function() {
 };
 
 /**
- *
  * @param shouldCrawl
  * return the id for the fetch condition.
  */
