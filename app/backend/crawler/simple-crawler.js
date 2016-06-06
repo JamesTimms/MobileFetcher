@@ -19,6 +19,11 @@ function GsmarenaCrawler() {
     var robotRules = new websiteRules.r('http://www.gsmarena.com/robots.txt', websiteRules.cachedGsmarenaRobotsTxt);
     this.addFetchCondition(filters);
     this.addFetchCondition(robotRules.isAllowed());
+    console.log("--------------------------------------------------------");
+    console.log("Applying filter rules");
+    console.log("robots disallowed: " + robotRules.isAllowed());
+    console.log("personal filter: " + filters);
+    console.log("--------------------------------------------------------");
     //---------------------------------------------------------------------------------------------------------//
 
     // this.c.on("fetchstart", function (queueItem, requestOptions) {
