@@ -1,4 +1,5 @@
 # Mobile Fetcher
+A small Electron based application I wrote several years ago for web scraping. No longer use or maintain.
 
 **Running the application**
 
@@ -35,4 +36,4 @@ $ npm run-script watchify
 
 Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
 
-#### License [All rights reserved](LICENSE.md)
+#### License [MIT](LICENSE.md)
